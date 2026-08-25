@@ -18,30 +18,30 @@ Every generated post lands in your WordPress dashboard as a draft for you to rev
 
 = Comprehensive Features =
 
-* **📅 Automated Scheduling & Cron Engine** — Hourly, twice-daily, daily, or weekly automation via WordPress Cron, plus on-demand "Generate Post Now".
-* **🤖 Multi-Model AI Integration** — Choose any OpenRouter language or image model with live dynamic model fetching and 24-hour caching.
-* **✍️ Writing & Image Style Controls** — Customize brand voice, target audience, tone, and visual guidelines through dedicated system prompts.
-* **🗂️ Category Selection & Smart Rotation** — Assign posts to chosen categories with automated cycling and drag-and-drop hierarchy sorting.
-* **🏷️ Taxonomy AI Description Generator** — Generate rich, SEO-friendly category and tag descriptions with one click directly from the term editor.
-* **📝 Post Editor AI Assistant Metabox** — Refine, expand, or rewrite generated drafts directly inside the Gutenberg or Classic editor.
-* **📈 Complete SEO Plugin Sync** — Auto-populate focus keywords, SEO titles, and meta descriptions for Rank Math, Yoast SEO, and All in One SEO (AIOSEO).
-* **🖼️ Automated Featured Images** — Generate AI images using OpenRouter models (Flux, DALL·E, etc.) or fetch curated photos via Unsplash.
-* **🔗 Smart Internal Linking** — Intelligent semantic matching and keyword insertion to connect your articles and boost site architecture.
-* **❓ FAQ Schema (JSON-LD)** — Generate relevant FAQs formatted with valid Schema.org `FAQPage` JSON-LD structured data.
-* **📑 Table of Contents (TOC)** — Auto-generate navigation TOCs from H2/H3 headings with custom smooth scroll offsets and Rank Math compatibility.
-* **📥 Bulk Keyword CSV Queue** — Import keyword spreadsheets with custom instructions and target dates to automate your editorial calendar.
-* **📋 AI Drafts Queue Dashboard** — Track, preview, edit, and publish AI-generated posts from a clean admin panel.
-* **🔒 Strict Security Standards** — Enterprise-level sanitization, nonce protection, capability verification, and masked database key storage.
+* **📅 Automated Scheduling & Cron Engine**: Hourly, twice-daily, daily, or weekly automation via WordPress Cron, plus on-demand "Generate Post Now".
+* **🤖 Multi-Model AI Integration**: Choose any OpenRouter language or image model with live dynamic model fetching and 24-hour caching.
+* **✍️ Writing & Image Style Controls**: Customize brand voice, target audience, tone, and visual guidelines through dedicated system prompts.
+* **🗂️ Category Selection & Smart Rotation**: Assign posts to chosen categories with automated cycling and drag-and-drop hierarchy sorting.
+* **🏷️ Taxonomy AI Description Generator**: Generate rich, SEO-friendly category and tag descriptions with one click directly from the term editor.
+* **📝 Post Editor AI Assistant Metabox**: Refine, expand, or rewrite generated drafts directly inside the Gutenberg or Classic editor.
+* **📈 Complete SEO Plugin Sync**: Auto-populate focus keywords, SEO titles, and meta descriptions for Rank Math, Yoast SEO, and All in One SEO (AIOSEO).
+* **🖼️ Automated Featured Images**: Generate AI images using OpenRouter models (Flux, DALL·E, etc.) or fetch curated photos via Unsplash.
+* **🔗 Smart Internal Linking**: Intelligent semantic matching and keyword insertion to connect your articles and boost site architecture.
+* **❓ FAQ Schema (JSON-LD)**: Generate relevant FAQs formatted with valid Schema.org `FAQPage` JSON-LD structured data.
+* **📑 Table of Contents (TOC)**: Auto-generate navigation TOCs from H2/H3 headings with custom smooth scroll offsets and Rank Math compatibility.
+* **📥 Bulk Keyword CSV Queue**: Import keyword spreadsheets with custom instructions and target dates to automate your editorial calendar.
+* **📋 AI Drafts Queue Dashboard**: Track, preview, edit, and publish AI-generated posts from a clean admin panel.
+* **🔒 Strict Security Standards**: Enterprise-level sanitization, nonce protection, capability verification, and masked database key storage.
 
 = How is the content quality? =
 
-DraftCraft gives you full control over the writing style through a custom system prompt. You can tell the AI to write in your brand voice, target a specific audience, match your existing tone, and include any topic-specific instructions. You choose the AI model — use a faster, lighter model for drafts or a more powerful one for near-publish-ready content.
+DraftCraft gives you full control over the writing style through a custom system prompt. You can tell the AI to write in your brand voice, target a specific audience, match your existing tone, and include any topic-specific instructions. You choose the AI model: use a faster, lighter model for drafts or a more powerful one for near-publish-ready content.
 
 All posts are created as drafts by default so you review them first. Think of it as having a dedicated first-draft writer on your team: it does the heavy lifting, you apply the finishing touches.
 
 = Is it safe for SEO? =
 
-Yes — with the right setup. DraftCraft-generated posts are regular WordPress posts. Whether they help or hurt SEO depends on the quality of your prompts and the model you choose. We recommend:
+Yes, with the right setup. DraftCraft-generated posts are regular WordPress posts. Whether they help or hurt SEO depends on the quality of your prompts and the model you choose. We recommend:
 - Keeping Post Status set to **Draft** and reviewing before publishing.
 - Writing a detailed system prompt that matches your site's niche and voice.
 - Enabling SEO Sync so each post gets a proper focus keyword, title, and meta description.
@@ -122,12 +122,12 @@ Your API key is stored safely in your own WordPress database (`wp_options`) and 
 
 == Screenshots ==
 
-1. API & Model settings — OpenRouter key configuration and model selection.
-2. Content settings — Brand writing style, category selection, and rotation order.
-3. SEO & Content features — SEO sync, smart internal linking, FAQ/TOC, and bulk CSV queue.
-4. Schedule settings — Automation frequency and cron controls.
-5. AI Drafts Queue — Manage and review generated posts.
-6. Quick Generate sidebar — Trigger manual runs and inspect live status.
+1. API & Model settings: OpenRouter key configuration and model selection.
+2. Content settings: Brand writing style, category selection, and rotation order.
+3. SEO & Content features: SEO sync, smart internal linking, FAQ/TOC, and bulk CSV queue.
+4. Schedule settings: Automation frequency and cron controls.
+5. AI Drafts Queue: Manage and review generated posts.
+6. Quick Generate sidebar: Trigger manual runs and inspect live status.
 
 == Changelog ==
 
