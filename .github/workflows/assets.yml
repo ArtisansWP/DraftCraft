@@ -1,0 +1,29 @@
+name: Sync Assets to WordPress.org
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.wordpress-org/**'
+  workflow_dispatch:
+
+jobs:
+  sync-assets:
+    name: Sync Assets to WordPress.org SVN
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Sync Assets to SVN
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+        run: |
+          mkdir -p /tmp/svn-assets
+          svn co https://plugins.svn.wordpress.org/draftcraft/assets /tmp/svn-assets --non-interactive --trust-server-cert --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
+          cp -rf .wordpress-org/* /tmp/svn-assets/
+          cd /tmp/svn-assets
+          svn add --force *
+          svn commit -m "Update assets: banners and icons" --non-interactive --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
