@@ -120,15 +120,6 @@ When generating content, DraftCraft communicates directly with OpenRouter (and U
 = Does DraftCraft store my API key securely? =
 Your API key is stored safely in your own WordPress database (`wp_options`) and is always masked (••••••••) in the administrative interface.
 
-== Screenshots ==
-
-1. API & Model settings: OpenRouter key configuration and model selection.
-2. Content settings: Brand writing style, category selection, and rotation order.
-3. SEO & Content features: SEO sync, smart internal linking, FAQ/TOC, and bulk CSV queue.
-4. Schedule settings: Automation frequency and cron controls.
-5. AI Drafts Queue: Manage and review generated posts.
-6. Quick Generate sidebar: Trigger manual runs and inspect live status.
-
 == Changelog ==
 
 = 1.2.2 =
