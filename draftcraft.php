@@ -14,8 +14,8 @@
  * Domain Path:       /languages
  *
  * @package   DraftCraft
- * @author    Squiz Pty Ltd <products@squiz.net>
- * @copyright 2024 Squiz Pty Ltd (ABN 77 084 670 600)
+ * @author    ArtisansWP
+ * @copyright 2026 ArtisansWP
  * @license   GPL-2.0-or-later
  */
 

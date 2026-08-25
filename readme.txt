@@ -132,6 +132,8 @@ Your API key is stored safely in your own WordPress database (`wp_options`) and 
 == Changelog ==
 
 = 1.2.2 =
+* Comprehensive UI polish across all settings tabs, Keyword Queue, and Schedule summary.
+* Fully compliant with WordPress Coding Standards (WPCS) and WordPress 7.1.
 * Fixed Unsplash API Terms URL in readme.txt to ensure a valid and publicly accessible link.
 
 = 1.2.1 =
