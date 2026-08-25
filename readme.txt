@@ -132,36 +132,4 @@ Your API key is stored safely in your own WordPress database (`wp_options`) and 
 == Changelog ==
 
 = 1.2.2 =
-* Comprehensive UI polish across all settings tabs, Keyword Queue, and Schedule summary.
-* Fully compliant with WordPress Coding Standards (WPCS) and WordPress 7.1.
-* Fixed Unsplash API Terms URL in readme.txt to ensure a valid and publicly accessible link.
-
-= 1.2.1 =
-* Cleaned codebase for official WordPress Plugin Directory standards.
-* Added Post Editor AI Assistant metabox for direct post refinements.
-* Added Taxonomy AI Description generator on category and tag edit screens.
-* Enhanced admin asset management by enqueueing external JavaScript and CSS files.
-* Refactored administrative template variables to strictly comply with WordPress global prefixing standards.
-* Added `languages/` directory with `draftcraft.pot` for full internationalization and localization support.
-* Updated compatibility header to WordPress 7.0.
-* Verified complete data sanitization, nonce protection, and output escaping across all features.
-
-= 1.2.0 =
-* Added SEO plugin sync for Rank Math, Yoast SEO, and AIOSEO (focus keyword, SEO title, meta description).
-* Added automated featured image generation via OpenRouter image models or Unsplash.
-* Added smart internal linking engine with semantic matching and keyword fallback.
-* Added automated FAQ section with Schema.org `FAQPage` JSON-LD structured data.
-* Added bulk keyword strategy CSV importer with persistent cron queue.
-* Added Table of Contents generator for H2/H3 headings with customizable scroll offset.
-* Added tabbed administration dashboard with AI Drafts Queue.
-
-= 1.1.0 =
-* Added drag-and-drop sortable category list.
-* Added category rotation queue preview with Next Post indicators.
-* Enhanced prompt generation with category context and descriptions.
-* Added transient-based pipeline lock to prevent duplicate generation runs.
-
-= 1.0.0 =
-* Initial public release.
-* Scheduled post generation via WordPress Cron.
-* OpenRouter API integration with dynamic model selection.
+* Initial release on WordPress.org.
