@@ -1,0 +1,2047 @@
+/*
+ * DraftCraft — Admin Stylesheet
+ * Plugin by ArtisansWP
+ * ArtisansWP Brand Theme Integration
+ */
+
+/* ─────────────────────────────────────────────
+	ArtisansWP Brand Design Tokens
+	───────────────────────────────────────────── */
+:root {
+	/* ArtisansWP Signature Emerald Green */
+	--dc-primary: #00875A;
+	--dc-primary-hover: #00704A;
+	--dc-primary-active: #00593B;
+	--dc-primary-light: #E6F6EE;
+	--dc-primary-border: #A3E6CD;
+	/* ArtisansWP Slate & Surface Palette */
+	--dc-bg: #F8FAFC;
+	--dc-surface: #FFF;
+	--dc-surface-alt: #F1F5F9;
+	--dc-border: #E2E8F0;
+	--dc-border-dark: #94A3B8;
+	--dc-border-subtle: #CBD5E1;
+	/* ArtisansWP Typography */
+	--dc-text: #0F172A;
+	--dc-text-secondary: #334155;
+	--dc-text-muted: #64748B;
+	--dc-text-light: #94A3B8;
+	--dc-font: -apple-system, blinkmacsystemfont, "Segoe UI", roboto, oxygen-sans, ubuntu, cantarell, "Helvetica Neue", sans-serif;
+	/* Status & Semantic Colors */
+	--dc-green: #00875A;
+	--dc-green-bg: #E6F6EE;
+	--dc-green-border: #A3E6CD;
+	--dc-amber: #D97706;
+	--dc-amber-bg: #FFFBEB;
+	--dc-amber-border: #FDE68A;
+	--dc-amber-text: #92400E;
+	--dc-red: #DC2626;
+	--dc-red-bg: #FEF2F2;
+	--dc-red-border: #FECACA;
+	/* Modern Rounded Geometry */
+	--dc-radius-sm: 4px;
+	--dc-radius: 8px;
+	--dc-radius-lg: 12px;
+	--dc-gap: 20px;
+	/* ArtisansWP Soft Card Shadows */
+	--dc-shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+	--dc-shadow-card: 0 1px 3px 0 rgba(0, 0, 0, 0.06), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
+	--dc-shadow-dropdown: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+	/* Transitions */
+	--dc-trans: 150ms ease;
+	/* Backward compatibility aliases */
+	--aw-blue: var(--dc-primary);
+	--aw-blue-hover: var(--dc-primary-hover);
+	--aw-blue-light: var(--dc-primary-light);
+	--aw-blue-border: var(--dc-primary-border);
+	--aw-green: var(--dc-green);
+	--aw-green-bg: var(--dc-green-bg);
+	--aw-amber: var(--dc-amber);
+	--aw-amber-bg: var(--dc-amber-bg);
+	--aw-red: var(--dc-red);
+	--aw-red-bg: var(--dc-red-bg);
+	--aw-gray: var(--dc-text-muted);
+	--aw-gray-bg: var(--dc-surface-alt);
+	--aw-bg: var(--dc-bg);
+	--aw-surface: var(--dc-surface);
+	--aw-surface-alt: var(--dc-surface-alt);
+	--aw-border: var(--dc-border);
+	--aw-border-dark: var(--dc-border-subtle);
+	--aw-text: var(--dc-text);
+	--aw-text-muted: var(--dc-text-muted);
+	--aw-text-light: var(--dc-text-light);
+	--aw-font: var(--dc-font);
+	--aw-radius: var(--dc-radius);
+	--aw-radius-lg: var(--dc-radius-lg);
+	--aw-gap: var(--dc-gap);
+	--aw-shadow-xs: var(--dc-shadow-xs);
+	--aw-shadow-sm: var(--dc-shadow-card);
+	--aw-shadow-md: var(--dc-shadow-dropdown);
+	--aw-trans: var(--dc-trans);
+	--aw-accent: var(--dc-primary);
+}
+
+/* ─────────────────────────────────────────────
+	Base Reset
+	───────────────────────────────────────────── */
+.draftcraft-wrap *,
+.draftcraft-wrap *::before,
+.draftcraft-wrap *::after {
+	box-sizing: border-box;
+}
+
+.draftcraft-wrap {
+	font-family: var(--dc-font);
+	font-size: 13px;
+	color: var(--dc-text);
+	line-height: 1.5;
+	max-width: none;
+	margin-top: 16px !important;
+	padding: 0 !important;
+	-webkit-font-smoothing: antialiased;
+}
+
+/* ─────────────────────────────────────────────
+	Header Bar
+	───────────────────────────────────────────── */
+.draftcraft-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 12px;
+	padding: 14px 20px;
+	background: var(--dc-surface);
+	border: 1px solid var(--dc-border-subtle);
+	border-radius: var(--dc-radius);
+	margin-bottom: 0;
+	box-shadow: var(--dc-shadow-card);
+}
+
+.draftcraft-header-brand {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+/* Visually hidden h1 for accessibility */
+.draftcraft-screen-title {
+	position: absolute !important;
+	width: 1px !important;
+	height: 1px !important;
+	padding: 0 !important;
+	margin: -1px !important;
+	overflow: hidden !important;
+	clip: rect(0, 0, 0, 0) !important;
+	white-space: nowrap !important;
+	border: 0 !important;
+}
+
+.draftcraft-header-text .draftcraft-header-title {
+	margin: 0;
+	font-size: 16px;
+	font-weight: 600;
+	color: var(--dc-text);
+	line-height: 1.3;
+}
+
+.draftcraft-header-by {
+	font-size: 11px;
+	color: var(--dc-text-muted);
+	font-weight: 500;
+}
+
+.draftcraft-header-meta {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.draftcraft-version-badge {
+	font-size: 11px;
+	font-weight: 600;
+	color: var(--dc-text-muted);
+	background: var(--dc-surface-alt);
+	border: 1px solid var(--dc-border-subtle);
+	padding: 2px 8px;
+	border-radius: var(--dc-radius-sm);
+}
+
+.draftcraft-status-pill {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 4px 10px;
+	border-radius: 100px;
+	font-size: 12px;
+	font-weight: 600;
+	border: 1px solid transparent;
+}
+
+.draftcraft-status-pill.is-active {
+	background: var(--dc-green-bg);
+	border-color: var(--dc-green-border);
+	color: var(--dc-green);
+}
+
+.draftcraft-status-pill.is-inactive {
+	background: var(--dc-surface-alt);
+	border-color: var(--dc-border-subtle);
+	color: var(--dc-text-muted);
+}
+
+.draftcraft-status-pip {
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: currentcolor;
+	flex-shrink: 0;
+}
+
+.draftcraft-status-pill.is-active .draftcraft-status-pip {
+	animation: dc-blink 1.8s ease-in-out infinite;
+}
+
+/* Unsaved changes indicator */
+.draftcraft-unsaved-pill {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 3px 9px;
+	border-radius: var(--dc-radius-sm);
+	font-size: 11.5px;
+	font-weight: 600;
+	border: 1px solid var(--dc-amber-border);
+	background: var(--dc-amber-bg);
+	color: var(--dc-amber-text);
+}
+
+.draftcraft-pip-unsaved {
+	background: var(--dc-amber) !important;
+	animation: dc-blink 1.1s infinite ease-in-out !important;
+}
+
+@keyframes dc-blink {
+
+	0%, 100% {
+		opacity: 1;
+}
+
+	50% {
+		opacity: 0.35;
+}
+
+}
+
+/* ─────────────────────────────────────────────
+	Tab Navigation (WordPress native tab bar style)
+	───────────────────────────────────────────── */
+.draftcraft-nav {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	padding: 0 8px;
+	background: var(--dc-surface);
+	border: 1px solid var(--dc-border-subtle);
+	border-top: none;
+	border-radius: 0 0 var(--dc-radius) var(--dc-radius);
+	margin-bottom: var(--dc-gap);
+	box-shadow: var(--dc-shadow-card);
+}
+
+.draftcraft-nav-item {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 10px 14px;
+	font-size: 13px;
+	font-weight: 500;
+	color: var(--dc-text-secondary);
+	text-decoration: none;
+	border-bottom: 2px solid transparent;
+	transition: color var(--dc-trans), border-color var(--dc-trans), background var(--dc-trans);
+	position: relative;
+	top: 1px;
+	white-space: nowrap;
+}
+
+.draftcraft-nav-item .dashicons {
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+	line-height: 1.2;
+	color: var(--dc-text-muted);
+}
+
+.draftcraft-nav-item:hover {
+	color: var(--dc-primary);
+	text-decoration: none;
+}
+
+.draftcraft-nav-item:hover .dashicons {
+	color: var(--dc-primary);
+}
+
+.draftcraft-nav-item.is-active {
+	color: var(--dc-primary);
+	border-bottom-color: var(--dc-primary);
+	font-weight: 600;
+}
+
+.draftcraft-nav-item.is-active .dashicons {
+	color: var(--dc-primary);
+}
+
+/* ─────────────────────────────────────────────
+	Body Layout
+	───────────────────────────────────────────── */
+.draftcraft-body {
+	display: grid;
+	grid-template-columns: 1fr 300px;
+	gap: var(--dc-gap);
+	align-items: start;
+	width: 100%;
+}
+
+.draftcraft-content {
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.draftcraft-sidebar {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	min-width: 0;
+	position: sticky;
+	top: 32px;
+}
+
+/* ─────────────────────────────────────────────
+	Tab Panels
+	───────────────────────────────────────────── */
+.draftcraft-panel {
+	display: none;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.draftcraft-panel.is-active {
+	display: flex;
+}
+
+/* ─────────────────────────────────────────────
+	Sections (WordPress Postbox / Card style)
+	───────────────────────────────────────────── */
+.draftcraft-section {
+	background: var(--dc-surface);
+	border: 1px solid var(--dc-border-subtle);
+	border-radius: var(--dc-radius);
+	box-shadow: var(--dc-shadow-card);
+	overflow: hidden;
+}
+
+.draftcraft-section-header {
+	padding: 16px 20px 0 20px;
+}
+
+.draftcraft-section-header h2 {
+	margin: 0 0 4px 0;
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--dc-text);
+}
+
+.draftcraft-section-header p {
+	margin: 0 0 14px 0;
+	font-size: 12.5px;
+	color: var(--dc-text-muted);
+	line-height: 1.5;
+}
+
+.draftcraft-section-body {
+	padding: 0 20px 18px 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
+}
+
+/* ─────────────────────────────────────────────
+	Form Fields
+	───────────────────────────────────────────── */
+.draftcraft-field {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.draftcraft-label {
+	font-size: 13px;
+	font-weight: 600;
+	color: var(--dc-text);
+	display: block;
+}
+
+.draftcraft-required {
+	color: var(--dc-red);
+	margin-left: 2px;
+}
+
+.draftcraft-description {
+	font-size: 12px !important;
+	color: var(--dc-text-muted) !important;
+	margin: 0 !important;
+	line-height: 1.5 !important;
+}
+
+.draftcraft-description a {
+	color: var(--dc-primary);
+	text-decoration: underline;
+}
+
+.draftcraft-description a:hover {
+	color: var(--dc-primary-hover);
+}
+
+/* ─────────────────────────────────────────────
+	Input Elements (WordPress 5.3+ native styling)
+	───────────────────────────────────────────── */
+.draftcraft-input,
+.draftcraft-select,
+.draftcraft-textarea {
+	background: var(--dc-surface) !important;
+	border: 1px solid var(--dc-border-dark) !important;
+	border-radius: var(--dc-radius) !important;
+	color: var(--dc-text-secondary) !important;
+	font-family: var(--dc-font) !important;
+	font-size: 13px !important;
+	line-height: 1.5 !important;
+	padding: 6px 10px !important;
+	transition: border-color var(--dc-trans), box-shadow var(--dc-trans) !important;
+	outline: none !important;
+	box-shadow: 0 0 0 transparent !important;
+}
+
+.draftcraft-input:focus,
+.draftcraft-select:focus,
+.draftcraft-textarea:focus {
+	border-color: var(--dc-primary) !important;
+	box-shadow: 0 0 0 1px var(--dc-primary) !important;
+	outline: 2px solid transparent !important;
+}
+
+.draftcraft-input--full,
+.draftcraft-select.draftcraft-input--full {
+	width: 100% !important;
+}
+
+.draftcraft-input::placeholder,
+.draftcraft-textarea::placeholder {
+	color: var(--dc-text-light) !important;
+}
+
+.draftcraft-select {
+	cursor: pointer;
+	height: 34px;
+	padding-right: 24px !important;
+}
+
+.draftcraft-textarea {
+	resize: vertical;
+	min-height: 130px;
+	width: 100% !important;
+}
+
+/* ─────────────────────────────────────────────
+	Interactive Help Tooltips
+	───────────────────────────────────────────── */
+.draftcraft-tooltip-wrap {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	cursor: help;
+	margin-left: 5px;
+	vertical-align: middle;
+	line-height: 1;
+}
+
+.draftcraft-tooltip-icon {
+	font-size: 15px;
+	width: 15px;
+	height: 15px;
+	color: var(--dc-text-light);
+	transition: color var(--dc-trans);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.draftcraft-tooltip-wrap:hover .draftcraft-tooltip-icon,
+.draftcraft-tooltip-wrap:focus-within .draftcraft-tooltip-icon {
+	color: var(--dc-primary);
+}
+
+.draftcraft-tooltip-bubble {
+	position: absolute;
+	bottom: calc(100% + 8px);
+	left: 50%;
+	transform: translatex(-50%) translatey(4px);
+	background: #0F172A;
+	color: #F8FAFC;
+	font-size: 11.5px;
+	font-weight: 400;
+	line-height: 1.45;
+	padding: 8px 12px;
+	border-radius: 6px;
+	width: max-content;
+	max-width: 270px;
+	box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.25), 0 8px 10px -6px rgba(0, 0, 0, 0.2);
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+	transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
+	z-index: 99999;
+	text-align: left;
+	white-space: normal;
+}
+
+.draftcraft-tooltip-bubble::after {
+	content: "";
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	transform: translatex(-50%);
+	border: 5px solid transparent;
+	border-top-color: #0F172A;
+}
+
+.draftcraft-tooltip-wrap:hover .draftcraft-tooltip-bubble,
+.draftcraft-tooltip-wrap:focus-within .draftcraft-tooltip-bubble {
+	opacity: 1;
+	visibility: visible;
+	transform: translatex(-50%) translatey(0);
+}
+
+/* ─────────────────────────────────────────────
+	Feature Cards / Sub-sections
+	───────────────────────────────────────────── */
+.draftcraft-feature-card {
+	background: var(--dc-surface-alt);
+	border: 1px solid var(--dc-border);
+	border-radius: var(--dc-radius);
+	padding: 16px 18px;
+	margin-bottom: 16px;
+	transition: border-color var(--dc-trans), box-shadow var(--dc-trans);
+}
+
+.draftcraft-feature-card:last-child {
+	margin-bottom: 0;
+}
+
+.draftcraft-feature-card:hover {
+	border-color: var(--dc-border-subtle);
+}
+
+.draftcraft-feature-card-header {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 16px;
+}
+
+.draftcraft-feature-card-info {
+	flex: 1;
+	min-width: 0;
+}
+
+.draftcraft-feature-card-info strong {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 13.5px;
+	font-weight: 600;
+	color: var(--dc-text);
+	margin-bottom: 3px;
+}
+
+.draftcraft-feature-card-info .draftcraft-description {
+	margin: 0;
+	font-size: 12px;
+}
+
+.draftcraft-feature-card-body {
+	margin-top: 14px;
+	padding-top: 14px;
+	border-top: 1px solid var(--dc-border);
+}
+
+/* ─────────────────────────────────────────────
+	Input with Addon button
+	───────────────────────────────────────────── */
+.draftcraft-input-addon {
+	display: flex;
+	gap: 6px;
+	align-items: stretch;
+}
+
+.draftcraft-input-addon .draftcraft-input,
+.draftcraft-input-addon .draftcraft-select {
+	flex: 1;
+	min-width: 0;
+}
+
+.draftcraft-addon-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0 10px;
+	height: 34px;
+	background: var(--dc-surface-alt);
+	border: 1px solid var(--dc-border-subtle);
+	border-radius: var(--dc-radius);
+	color: var(--dc-text-secondary);
+	cursor: pointer;
+	transition: background var(--dc-trans), color var(--dc-trans), border-color var(--dc-trans);
+	flex-shrink: 0;
+}
+
+.draftcraft-addon-btn:hover {
+	background: #F0F0F1;
+	border-color: var(--dc-border-dark);
+	color: var(--dc-text);
+}
+
+.draftcraft-addon-btn:focus {
+	border-color: var(--dc-primary);
+	box-shadow: 0 0 0 1px var(--dc-primary);
+	outline: 2px solid transparent;
+}
+
+.draftcraft-addon-btn .dashicons {
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+}
+
+/* ─────────────────────────────────────────────
+	CSV Keyword Import Box
+	───────────────────────────────────────────── */
+.draftcraft-csv-box {
+	background: var(--dc-surface-alt);
+	border: 1px solid var(--dc-border);
+	border-radius: var(--dc-radius);
+	padding: 0;
+	overflow: hidden;
+	margin: 18px 0 14px 0;
+}
+
+.draftcraft-csv-grid {
+	display: grid;
+	grid-template-columns: 1fr 220px;
+	gap: 16px;
+	padding: 18px 18px 0 18px;
+	margin-bottom: 16px;
+}
+
+.draftcraft-csv-grid .draftcraft-field {
+	margin-bottom: 0;
+}
+
+.draftcraft-file-input {
+	padding: 4px 8px !important;
+	font-size: 12px !important;
+	height: 36px !important;
+	line-height: 26px !important;
+	background: var(--dc-surface) !important;
+}
+
+.draftcraft-csv-footer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	padding: 12px 18px;
+	border-top: 1px solid var(--dc-border);
+	background: var(--dc-surface);
+	flex-wrap: wrap;
+}
+
+#draftcraft-csv-import-status {
+	padding: 0 18px 12px 18px;
+	margin: 0;
+}
+
+.draftcraft-csv-hints {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	flex-wrap: wrap;
+}
+
+.draftcraft-csv-hints .draftcraft-description {
+	margin: 0;
+	font-size: 12px;
+}
+
+.draftcraft-csv-sample-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	font-size: 12px;
+	font-weight: 500;
+	color: var(--dc-primary);
+	text-decoration: none;
+}
+
+.draftcraft-csv-sample-link:hover {
+	color: var(--dc-primary-hover);
+	text-decoration: underline;
+}
+
+.draftcraft-csv-sample-link .dashicons {
+	font-size: 14px;
+	width: 14px;
+	height: 14px;
+	line-height: 1.1;
+}
+
+#draftcraft-csv-import-status {
+	margin: 8px 0 0 0;
+	font-size: 12px;
+	font-weight: 500;
+}
+
+#draftcraft-csv-import-status:empty {
+	margin: 0;
+	padding: 0;
+}
+
+/* ─────────────────────────────────────────────
+	Buttons (WordPress Native Button System)
+	───────────────────────────────────────────── */
+.draftcraft-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	padding: 6px 14px;
+	height: 34px;
+	border-radius: var(--dc-radius);
+	font-family: var(--dc-font);
+	font-size: 13px;
+	font-weight: 500;
+	cursor: pointer;
+	text-decoration: none;
+	white-space: nowrap;
+	border: 1px solid transparent;
+	transition: background var(--dc-trans), border-color var(--dc-trans),
+	box-shadow var(--dc-trans), color var(--dc-trans);
+	line-height: 1.4;
+}
+
+.draftcraft-btn:focus {
+	outline: 2px solid transparent;
+	box-shadow: 0 0 0 1px #FFF, 0 0 0 3px var(--dc-primary);
+}
+
+.draftcraft-btn .dashicons {
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+	line-height: 1.2;
+	flex-shrink: 0;
+}
+
+.draftcraft-btn--sm {
+	height: 28px;
+	padding: 0 10px;
+	font-size: 12px;
+	gap: 4px;
+}
+
+.draftcraft-btn--sm .dashicons {
+	font-size: 13px;
+	width: 13px;
+	height: 13px;
+}
+
+/* Primary Button */
+.draftcraft-btn--primary {
+	background: var(--dc-primary);
+	border-color: var(--dc-primary);
+	color: #FFF;
+	font-weight: 500;
+	box-shadow: 0 1px 0 var(--dc-primary-active);
+}
+
+.draftcraft-btn--primary:hover {
+	background: var(--dc-primary-hover);
+	border-color: var(--dc-primary-hover);
+	color: #FFF;
+	text-decoration: none;
+}
+
+.draftcraft-btn--primary:active {
+	background: var(--dc-primary-active);
+	border-color: var(--dc-primary-active);
+}
+
+/* Secondary Button */
+.draftcraft-btn--secondary {
+	background: var(--dc-surface);
+	border-color: var(--dc-border);
+	color: var(--dc-text);
+	font-weight: 500;
+}
+
+.draftcraft-btn--secondary:hover {
+	background: var(--dc-surface-alt);
+	border-color: var(--dc-border-subtle);
+	color: var(--dc-text);
+	text-decoration: none;
+}
+
+/* Generate Button (Native WordPress Primary Accent Action) */
+.draftcraft-btn--generate {
+	background: var(--dc-primary);
+	border-color: var(--dc-primary);
+	color: #FFF;
+	height: 38px;
+	padding: 8px 16px;
+	width: 100%;
+	font-weight: 600;
+	box-shadow: 0 1px 0 var(--dc-primary-active);
+}
+
+.draftcraft-btn--generate:hover {
+	background: var(--dc-primary-hover);
+	border-color: var(--dc-primary-hover);
+	color: #FFF;
+	text-decoration: none;
+}
+
+.draftcraft-btn--generate:active {
+	background: var(--dc-primary-active);
+	border-color: var(--dc-primary-active);
+}
+
+.draftcraft-btn--generate:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+	background: var(--dc-border-dark) !important;
+	border-color: var(--dc-border-dark) !important;
+	color: #FFF !important;
+	box-shadow: none !important;
+}
+
+.draftcraft-btn--full {
+	width: 100%;
+	justify-content: center;
+}
+
+/* ─────────────────────────────────────────────
+	Toggle Switch
+	───────────────────────────────────────────── */
+.draftcraft-field--toggle {
+	gap: 0;
+}
+
+.draftcraft-toggle-row {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 16px;
+	padding: 12px 0;
+	border-top: 1px solid var(--dc-border);
+}
+
+.draftcraft-toggle-row:first-child {
+	border-top: none;
+	padding-top: 0;
+}
+
+.draftcraft-toggle-info {
+	flex: 1;
+	min-width: 0;
+}
+
+.draftcraft-toggle-info strong {
+	display: block;
+	font-size: 13px;
+	font-weight: 600;
+	color: var(--dc-text);
+	margin-bottom: 2px;
+}
+
+.draftcraft-toggle-info .draftcraft-description {
+	margin-top: 2px;
+}
+
+.draftcraft-switch {
+	cursor: pointer;
+	display: block;
+	flex-shrink: 0;
+	margin-top: 2px;
+}
+
+.draftcraft-switch input[type="checkbox"] {
+	position: absolute;
+	opacity: 0;
+	width: 0;
+	height: 0;
+	margin: 0;
+}
+
+.draftcraft-switch-track {
+	display: flex;
+	align-items: center;
+	width: 40px;
+	height: 22px;
+	background: var(--dc-border-dark);
+	border-radius: 100px;
+	padding: 2px;
+	transition: background var(--dc-trans);
+	position: relative;
+}
+
+.draftcraft-switch-thumb {
+	width: 18px;
+	height: 18px;
+	background: #FFF;
+	border-radius: 50%;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+	transition: transform var(--dc-trans);
+	display: block;
+}
+
+.draftcraft-switch input:checked + .draftcraft-switch-track {
+	background: var(--dc-primary);
+}
+
+.draftcraft-switch input:checked + .draftcraft-switch-track .draftcraft-switch-thumb {
+	transform: translatex(18px);
+}
+
+.draftcraft-switch input:focus-visible + .draftcraft-switch-track {
+	box-shadow: 0 0 0 1px #FFF, 0 0 0 3px var(--dc-primary);
+}
+
+/* ─────────────────────────────────────────────
+	Category Toolbar (Search & Bulk Selection)
+	───────────────────────────────────────────── */
+.draftcraft-cat-toolbar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+	padding: 8px 12px;
+	background: var(--dc-surface);
+	border: 1px solid var(--dc-border-subtle);
+	border-bottom: none;
+	border-radius: var(--dc-radius) var(--dc-radius) 0 0;
+	flex-wrap: wrap;
+}
+
+.draftcraft-cat-filter-tabs {
+	display: flex;
+	align-items: center;
+	gap: 3px;
+	background: var(--dc-surface-alt);
+	padding: 2px;
+	border-radius: var(--dc-radius-sm);
+	border: 1px solid var(--dc-border);
+}
+
+.draftcraft-cat-tab-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	padding: 3px 9px;
+	font-size: 11.5px;
+	font-weight: 500;
+	color: var(--dc-text-secondary);
+	background: transparent;
+	border: none;
+	border-radius: 3px;
+	cursor: pointer;
+	transition: background var(--dc-trans), color var(--dc-trans), box-shadow var(--dc-trans);
+}
+
+.draftcraft-cat-tab-btn:hover {
+	color: var(--dc-text);
+}
+
+.draftcraft-cat-tab-btn.is-active {
+	background: var(--dc-surface);
+	color: var(--dc-text);
+	font-weight: 600;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.draftcraft-cat-pill {
+	font-size: 10px;
+	font-weight: 600;
+	padding: 1px 6px;
+	border-radius: 10px;
+	background: var(--dc-border);
+	color: var(--dc-text-muted);
+	line-height: 1.2;
+}
+
+.draftcraft-cat-pill.is-active-pill {
+	background: var(--dc-primary-light);
+	color: var(--dc-primary);
+}
+
+.draftcraft-cat-search-wrap {
+	position: relative;
+	display: flex;
+	align-items: center;
+	flex: 1;
+	min-width: 150px;
+}
+
+.draftcraft-cat-search-wrap .dashicons {
+	position: absolute;
+	left: 8px;
+	font-size: 15px;
+	width: 15px;
+	height: 15px;
+	color: var(--dc-text-muted);
+	pointer-events: none;
+}
+
+.draftcraft-cat-search-input {
+	width: 100% !important;
+	height: 28px !important;
+	padding: 3px 8px 3px 26px !important;
+	font-size: 12px !important;
+	border: 1px solid var(--dc-border) !important;
+	border-radius: var(--dc-radius-sm) !important;
+	background: var(--dc-surface-alt) !important;
+	color: var(--dc-text) !important;
+	box-shadow: none !important;
+	transition: border-color var(--dc-trans), background var(--dc-trans), box-shadow var(--dc-trans) !important;
+}
+
+.draftcraft-cat-search-input:focus {
+	background: var(--dc-surface) !important;
+	border-color: var(--dc-primary) !important;
+	box-shadow: 0 0 0 1px var(--dc-primary) !important;
+	outline: none !important;
+}
+
+.draftcraft-cat-actions {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.draftcraft-cat-action-btn {
+	background: none;
+	border: none;
+	padding: 0;
+	font-size: 11.5px;
+	font-weight: 500;
+	color: var(--dc-primary);
+	cursor: pointer;
+	text-decoration: underline;
+	transition: color var(--dc-trans);
+}
+
+.draftcraft-cat-action-btn:hover {
+	color: var(--dc-primary-hover);
+}
+
+.draftcraft-cat-action-sep {
+	color: var(--dc-border-dark);
+	font-size: 10px;
+}
+
+.draftcraft-cat-empty {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 24px 16px;
+	color: var(--dc-text-muted);
+	font-size: 12.5px;
+	background: var(--dc-surface);
+}
+
+.draftcraft-cat-load-more {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	padding: 10px 16px;
+	font-size: 11.5px;
+	color: var(--dc-text-light);
+	background: var(--dc-surface-alt);
+	border-top: 1px dashed var(--dc-border);
+}
+
+/* ─────────────────────────────────────────────
+	Category Checkbox Sortable List
+	───────────────────────────────────────────── */
+.draftcraft-sortable-list {
+	list-style: none;
+	margin: 0 0 14px 0;
+	padding: 0;
+	background: var(--dc-surface-alt);
+	border: 1px solid var(--dc-border-subtle);
+	border-radius: 0 0 var(--dc-radius) var(--dc-radius);
+	max-height: 320px;
+	overflow-y: auto;
+	scrollbar-width: thin;
+}
+
+.draftcraft-sortable-list::-webkit-scrollbar {
+	width: 6px;
+}
+
+.draftcraft-sortable-list::-webkit-scrollbar-thumb {
+	background: var(--dc-border-dark);
+	border-radius: 3px;
+}
+
+.draftcraft-sort-item {
+	display: flex;
+	align-items: center;
+	padding: 9px 12px;
+	border-bottom: 1px solid var(--dc-border);
+	background: var(--dc-surface);
+	transition: background var(--dc-trans);
+}
+
+.draftcraft-sort-item:last-child {
+	border-bottom: none;
+}
+
+.draftcraft-sort-item.ui-sortable-helper {
+	box-shadow: var(--dc-shadow-dropdown);
+	border-radius: var(--dc-radius);
+	border: 1px solid var(--dc-primary-border);
+	opacity: 0.95;
+	background: var(--dc-primary-light);
+}
+
+.draftcraft-sort-item.ui-sortable-placeholder {
+	background: var(--dc-primary-light) !important;
+	visibility: visible !important;
+	border: 1px dashed var(--dc-primary);
+	height: 40px;
+}
+
+.draftcraft-drag-handle {
+	cursor: grab;
+	color: var(--dc-text-light);
+	margin-right: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.draftcraft-drag-handle:hover {
+	color: var(--dc-text);
+}
+
+.draftcraft-drag-handle:active {
+	cursor: grabbing;
+}
+
+.draftcraft-sort-check {
+	accent-color: var(--dc-primary);
+	width: 15px;
+	height: 15px;
+	cursor: pointer;
+	margin: 0 10px 0 0 !important;
+	flex-shrink: 0;
+}
+
+.draftcraft-sort-label {
+	flex: 1;
+	font-size: 13px;
+	font-weight: 500;
+	color: var(--dc-text);
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	user-select: none;
+}
+
+.draftcraft-add-desc-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 3px;
+	font-size: 11px;
+	font-weight: 500;
+	color: var(--dc-amber-text);
+	background: var(--dc-amber-bg);
+	border: 1px solid var(--dc-amber-border);
+	border-radius: var(--dc-radius-sm);
+	padding: 1px 6px;
+	text-decoration: none;
+	margin-left: 6px;
+	transition: background var(--dc-trans), color var(--dc-trans);
+}
+
+.draftcraft-add-desc-link:hover {
+	background: var(--dc-amber-border);
+	color: #FFF;
+	text-decoration: none;
+}
+
+.draftcraft-add-desc-link .dashicons {
+	font-size: 13px;
+	width: 13px;
+	height: 13px;
+	line-height: 1.2;
+}
+
+.draftcraft-checkbox-count {
+	font-size: 11px;
+	color: var(--dc-text-light);
+	background: var(--dc-surface-alt);
+	padding: 1px 6px;
+	border-radius: 100px;
+}
+
+.draftcraft-sort-badge {
+	font-size: 10px;
+	font-weight: 600;
+	padding: 2px 8px;
+	border-radius: 100px;
+	background: var(--dc-surface-alt);
+	color: var(--dc-text-muted);
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	transition: background var(--dc-trans), color var(--dc-trans);
+}
+
+.draftcraft-sort-badge.is-active {
+	background: var(--dc-green-bg);
+	color: var(--dc-green);
+	border: 1px solid var(--dc-green-border);
+}
+
+.draftcraft-next-cat-preview {
+	background: var(--dc-surface-alt);
+	border: 1px solid var(--dc-border-subtle);
+	border-radius: var(--dc-radius);
+	padding: 12px 16px;
+	margin-top: 14px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.draftcraft-next-cat-header {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 11px;
+	font-weight: 700;
+	color: var(--dc-text-muted);
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+}
+
+.draftcraft-next-cat-header .dashicons {
+	font-size: 15px;
+	width: 15px;
+	height: 15px;
+	color: var(--dc-text-muted);
+}
+
+.draftcraft-next-cat-body {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.draftcraft-next-cat-item {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-size: 13px;
+	color: var(--dc-text);
+}
+
+.draftcraft-next-cat-item.is-next {
+	font-weight: 600;
+}
+
+.draftcraft-next-cat-badge {
+	font-size: 10px;
+	font-weight: 700;
+	padding: 1px 7px;
+	border-radius: var(--dc-radius-sm);
+	background: var(--dc-green);
+	color: #FFF;
+	text-transform: uppercase;
+}
+
+.draftcraft-next-cat-badge.is-after {
+	background: var(--dc-border-subtle);
+	color: var(--dc-text);
+}
+
+/* ─────────────────────────────────────────────
+	Schedule Grid
+	───────────────────────────────────────────── */
+.draftcraft-schedule-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 8px;
+}
+
+.draftcraft-schedule-card {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 3px;
+	padding: 12px 8px;
+	border: 1px solid var(--dc-border-subtle);
+	border-radius: var(--dc-radius);
+	cursor: pointer;
+	text-align: center;
+	background: var(--dc-surface);
+	transition: border-color var(--dc-trans), background var(--dc-trans), box-shadow var(--dc-trans);
+	user-select: none;
+}
+
+.draftcraft-schedule-card:hover {
+	border-color: var(--dc-primary);
+	background: var(--dc-primary-light);
+}
+
+.draftcraft-schedule-card.is-selected {
+	border-color: var(--dc-primary);
+	background: var(--dc-primary-light);
+	box-shadow: 0 0 0 1px var(--dc-primary);
+}
+
+.draftcraft-schedule-card input[type="radio"] {
+	display: none;
+}
+
+.draftcraft-schedule-icon {
+	font-size: 18px;
+	line-height: 1;
+	display: block;
+}
+
+.draftcraft-schedule-label {
+	font-size: 12.5px;
+	font-weight: 600;
+	color: var(--dc-text);
+	display: block;
+}
+
+.draftcraft-schedule-sub {
+	font-size: 11px;
+	color: var(--dc-text-muted);
+	display: block;
+}
+
+.draftcraft-schedule-card.is-selected .draftcraft-schedule-label {
+	color: var(--dc-primary);
+}
+
+/* ─────────────────────────────────────────────
+	Cron Info Row
+	───────────────────────────────────────────── */
+.draftcraft-cron-info {
+	display: flex;
+	align-items: center;
+	gap: 7px;
+	padding: 9px 12px;
+	background: var(--dc-primary-light);
+	border: 1px solid var(--dc-primary-border);
+	border-radius: var(--dc-radius);
+	font-size: 12.5px;
+	color: var(--dc-text-secondary);
+}
+
+.draftcraft-cron-info .dashicons {
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+	flex-shrink: 0;
+	color: var(--dc-primary);
+}
+
+/* ─────────────────────────────────────────────
+	Keyword Queue: How-it-works Flow Diagram
+	───────────────────────────────────────────── */
+.draftcraft-how-it-works {
+	background: var(--dc-surface-alt);
+	border: 1px solid var(--dc-border);
+	border-left: 3px solid var(--dc-primary);
+	border-radius: var(--dc-radius);
+	padding: 14px 16px;
+	margin-bottom: 12px;
+}
+
+.draftcraft-how-it-works-title {
+	display: flex;
+	align-items: center;
+	gap: 7px;
+	font-size: 12.5px;
+	font-weight: 600;
+	color: var(--dc-text);
+	margin-bottom: 10px;
+}
+
+.draftcraft-how-it-works-title .dashicons {
+	color: var(--dc-primary);
+	font-size: 15px;
+	width: 15px;
+	height: 15px;
+	flex-shrink: 0;
+}
+
+.draftcraft-how-it-works-flow {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	flex-wrap: wrap;
+}
+
+.draftcraft-flow-step {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	padding: 5px 10px;
+	border-radius: var(--dc-radius-sm);
+	font-size: 12px;
+	font-weight: 500;
+	background: var(--dc-surface);
+	border: 1px solid var(--dc-border);
+	color: var(--dc-text-muted);
+	white-space: nowrap;
+}
+
+.draftcraft-flow-step .dashicons {
+	font-size: 14px;
+	width: 14px;
+	height: 14px;
+}
+
+.draftcraft-flow-step--active {
+	background: var(--dc-primary-light);
+	border-color: var(--dc-primary-border);
+	color: var(--dc-primary);
+	font-weight: 600;
+}
+
+.draftcraft-flow-arrow {
+	font-size: 14px;
+	font-weight: 700;
+	color: var(--dc-primary);
+	flex-shrink: 0;
+}
+
+.draftcraft-flow-divider {
+	font-size: 18px;
+	color: var(--dc-border-dark);
+	flex-shrink: 0;
+	padding: 0 2px;
+}
+
+.draftcraft-how-it-works-desc {
+	margin-top: 14px !important;
+	line-height: 1.55;
+	color: var(--dc-text-muted);
+}
+
+/* ─────────────────────────────────────────────
+	CSV Box: Sub-header
+	───────────────────────────────────────────── */
+.draftcraft-csv-box-header {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 12px 18px;
+	background: var(--dc-surface);
+	border-bottom: 1px solid var(--dc-border);
+	font-size: 13px;
+	font-weight: 600;
+	color: var(--dc-text);
+}
+
+.draftcraft-csv-box-header .dashicons {
+	color: var(--dc-primary);
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+}
+
+/* ─────────────────────────────────────────────
+	Queue Status Bar
+	───────────────────────────────────────────── */
+.draftcraft-queue-status-bar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	padding: 10px 14px;
+	background: var(--dc-surface-alt);
+	border: 1px solid var(--dc-border);
+	border-radius: var(--dc-radius);
+	font-size: 12.5px;
+	flex-wrap: wrap;
+}
+
+.draftcraft-queue-status-counts {
+	display: flex;
+	align-items: center;
+	gap: 7px;
+	color: var(--dc-text-secondary);
+	font-weight: 500;
+}
+
+.draftcraft-queue-status-counts .dashicons {
+	font-size: 15px;
+	width: 15px;
+	height: 15px;
+	flex-shrink: 0;
+}
+
+.draftcraft-queue-status-actions {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.draftcraft-queue-action-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	font-size: 12px;
+	color: var(--dc-text-secondary);
+	text-decoration: none;
+	transition: color var(--dc-trans);
+}
+
+.draftcraft-queue-action-link .dashicons {
+	font-size: 13px;
+	width: 13px;
+	height: 13px;
+}
+
+.draftcraft-queue-action-link:hover {
+	color: var(--dc-primary);
+}
+
+.draftcraft-queue-action-link--danger:hover {
+	color: var(--dc-red);
+}
+
+/* ─────────────────────────────────────────────
+	Save Bar
+	───────────────────────────────────────────── */
+.draftcraft-save-bar {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	padding: 12px 18px;
+	background: var(--dc-surface);
+	border: 1px solid var(--dc-border-subtle);
+	border-radius: var(--dc-radius);
+	box-shadow: var(--dc-shadow-card);
+}
+
+.draftcraft-save-note {
+	font-size: 12px;
+	color: var(--dc-text-muted);
+}
+
+/* ─────────────────────────────────────────────
+	Sidebar Widgets (WordPress Metabox Style)
+	───────────────────────────────────────────── */
+.draftcraft-widget {
+	background: var(--dc-surface);
+	border: 1px solid var(--dc-border-subtle);
+	border-radius: var(--dc-radius);
+	box-shadow: var(--dc-shadow-card);
+	overflow: hidden;
+}
+
+.draftcraft-widget--generate {
+	border-top: 3px solid var(--dc-primary);
+}
+
+.draftcraft-widget--save {
+	border-top: 3px solid var(--dc-primary);
+	transition: border-color var(--dc-trans), box-shadow var(--dc-trans);
+}
+
+.draftcraft-widget--save.has-unsaved {
+	border-top-color: var(--dc-amber);
+}
+
+.draftcraft-widget-unsaved-tag {
+	margin-left: auto;
+	background: var(--dc-amber-bg);
+	color: var(--dc-amber-text);
+	font-size: 10px;
+	font-weight: 700;
+	padding: 1px 6px;
+	border-radius: var(--dc-radius-sm);
+	border: 1px solid var(--dc-amber-border);
+	letter-spacing: 0.03em;
+	text-transform: uppercase;
+}
+
+.draftcraft-widget--save.has-unsaved #draftcraft-save-help-text {
+	color: var(--dc-amber-text);
+	font-weight: 600;
+}
+
+.draftcraft-widget--muted {
+	background: var(--dc-surface-alt);
+}
+
+.draftcraft-widget-header {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 10px 14px;
+	border-bottom: 1px solid var(--dc-border);
+	background: var(--dc-surface);
+}
+
+.draftcraft-widget--muted .draftcraft-widget-header {
+	background: var(--dc-surface-alt);
+	border-bottom-color: var(--dc-border-subtle);
+}
+
+.draftcraft-widget-header .dashicons {
+	color: var(--dc-primary);
+	font-size: 17px;
+	width: 17px;
+	height: 17px;
+}
+
+.draftcraft-widget-header h3 {
+	margin: 0;
+	font-size: 13px;
+	font-weight: 600;
+	color: var(--dc-text);
+}
+
+.draftcraft-widget-body {
+	padding: 12px 14px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.draftcraft-widget-body > p {
+	margin: 0;
+	font-size: 12.5px;
+	color: var(--dc-text-muted);
+	line-height: 1.5;
+}
+
+/* ─────────────────────────────────────────────
+	Generate Result & Pipeline Tracker
+	───────────────────────────────────────────── */
+.draftcraft-generate-result {
+	display: none;
+	padding: 9px 12px;
+	border-radius: var(--dc-radius-sm);
+	font-size: 12.5px;
+	line-height: 1.5;
+	border-left: 3px solid;
+}
+
+.draftcraft-generate-result.is-success {
+	display: block;
+	background: var(--dc-green-bg);
+	border-color: var(--dc-green);
+	color: var(--dc-green);
+}
+
+.draftcraft-generate-result.is-error {
+	display: block;
+	background: var(--dc-red-bg);
+	border-color: var(--dc-red);
+	color: var(--dc-red);
+}
+
+.draftcraft-generate-result a {
+	color: var(--dc-primary);
+	text-decoration: underline;
+	font-weight: 600;
+}
+
+.draftcraft-pipeline-tracker {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	background: var(--dc-surface-alt);
+	border: 1px solid var(--dc-border);
+	border-radius: var(--dc-radius);
+	padding: 10px 12px;
+}
+
+.draftcraft-step {
+	display: flex;
+	align-items: flex-start;
+	gap: 8px;
+	font-size: 12px;
+	color: var(--dc-text-muted);
+	transition: all 0.2s ease;
+}
+
+.draftcraft-step-bullet {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	background: var(--dc-border-subtle);
+	color: var(--dc-text-muted);
+	flex-shrink: 0;
+	margin-top: 1px;
+	font-size: 11px;
+}
+
+.draftcraft-step-bullet .dashicons {
+	font-size: 13px;
+	width: 13px;
+	height: 13px;
+	line-height: 13px;
+}
+
+.draftcraft-step-content {
+	display: flex;
+	flex-direction: column;
+	line-height: 1.35;
+	flex: 1;
+}
+
+.draftcraft-step-content strong {
+	color: var(--dc-text);
+	font-size: 12px;
+	font-weight: 600;
+}
+
+.draftcraft-step-desc {
+	color: var(--dc-text-muted);
+	font-size: 11px;
+	margin-top: 1px;
+}
+
+/* Step States */
+.draftcraft-step.draftcraft-step--active {
+	color: var(--dc-text);
+}
+
+.draftcraft-step.draftcraft-step--active .draftcraft-step-bullet {
+	background: var(--dc-primary-light);
+	color: var(--dc-primary);
+	border: 1px solid var(--dc-primary-border);
+}
+
+.draftcraft-step.draftcraft-step--done .draftcraft-step-bullet {
+	background: var(--dc-green-bg);
+	color: var(--dc-green);
+	border: 1px solid var(--dc-green-border);
+}
+
+.draftcraft-step.draftcraft-step--warn .draftcraft-step-bullet {
+	background: var(--dc-amber-bg);
+	color: var(--dc-amber-text);
+	border: 1px solid var(--dc-amber-border);
+}
+
+.draftcraft-step.draftcraft-step--error .draftcraft-step-bullet {
+	background: var(--dc-red-bg);
+	color: var(--dc-red);
+	border: 1px solid var(--dc-red-border);
+}
+
+.draftcraft-gen-footer {
+	margin-top: 8px;
+	padding: 8px 12px;
+	border-radius: var(--dc-radius);
+	font-size: 12px;
+	line-height: 1.4;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.draftcraft-gen-footer.is-success {
+	background: var(--dc-green-bg);
+	border: 1px solid var(--dc-green-border);
+	color: var(--dc-green);
+}
+
+.draftcraft-gen-footer.is-error {
+	background: var(--dc-red-bg);
+	border: 1px solid var(--dc-red-border);
+	color: var(--dc-red);
+}
+
+.draftcraft-gen-footer a {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	color: var(--dc-primary);
+	font-weight: 600;
+	text-decoration: underline;
+}
+
+/* ─────────────────────────────────────────────
+	Status List
+	───────────────────────────────────────────── */
+.draftcraft-status-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0;
+}
+
+.draftcraft-status-row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	padding: 7px 0;
+	border-bottom: 1px solid var(--dc-border);
+	font-size: 12.5px;
+}
+
+.draftcraft-status-row:last-child {
+	border-bottom: none;
+}
+
+.draftcraft-status-label {
+	color: var(--dc-text-muted);
+	flex-shrink: 0;
+}
+
+/* ─────────────────────────────────────────────
+	Pills (status badges)
+	───────────────────────────────────────────── */
+.draftcraft-pill {
+	display: inline-flex;
+	align-items: center;
+	padding: 2px 8px;
+	border-radius: var(--dc-radius-sm);
+	font-size: 11px;
+	font-weight: 600;
+	white-space: nowrap;
+	max-width: 140px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.draftcraft-pill--ok {
+	background: var(--dc-green-bg);
+	color: var(--dc-green);
+	border: 1px solid var(--dc-green-border);
+}
+
+.draftcraft-pill--warn {
+	background: var(--dc-amber-bg);
+	color: var(--dc-amber-text);
+	border: 1px solid var(--dc-amber-border);
+}
+
+.draftcraft-pill--off {
+	background: var(--dc-surface-alt);
+	color: var(--dc-text-muted);
+	border: 1px solid var(--dc-border-subtle);
+}
+
+.draftcraft-pill--info {
+	background: var(--dc-primary-light);
+	color: var(--dc-primary);
+	border: 1px solid var(--dc-primary-border);
+}
+
+/* ─────────────────────────────────────────────
+	Misc: Link List, Notice, Developer Note
+	───────────────────────────────────────────── */
+.draftcraft-link-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.draftcraft-link-list li a {
+	font-size: 12.5px;
+	color: var(--dc-primary);
+	text-decoration: none;
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.draftcraft-link-list li a:hover {
+	color: var(--dc-primary-hover);
+	text-decoration: underline;
+}
+
+.draftcraft-developer-note {
+	font-size: 11.5px;
+	color: var(--dc-text-light);
+	margin: 0;
+	padding-top: 10px;
+	border-top: 1px solid var(--dc-border);
+}
+
+.draftcraft-developer-note a {
+	color: var(--dc-text-muted);
+}
+
+.draftcraft-notice-inline {
+	font-size: 12.5px;
+	color: var(--dc-text-secondary);
+	margin: 0;
+	padding: 10px 14px;
+	background: var(--dc-amber-bg);
+	border: 1px solid var(--dc-amber-border);
+	border-radius: var(--dc-radius);
+}
+
+/* WordPress admin notice override */
+.draftcraft-notice {
+	border-left-color: var(--dc-green) !important;
+	background: var(--dc-surface) !important;
+}
+
+.draftcraft-notice p {
+	color: var(--dc-text);
+}
+
+/* ─────────────────────────────────────────────
+	Spin Animation
+	───────────────────────────────────────────── */
+@keyframes dc-spin {
+
+	to {
+		transform: rotate(360deg);
+}
+
+}
+
+.draftcraft-spinning {
+	animation: dc-spin 0.7s linear infinite;
+}
+
+/* ─────────────────────────────────────────────
+	Responsive
+	───────────────────────────────────────────── */
+@media (max-width: 1050px) {
+
+	.draftcraft-body {
+		grid-template-columns: 1fr;
+	}
+
+	.draftcraft-sidebar {
+		position: static;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+}
+
+@media (max-width: 782px) {
+
+	.draftcraft-schedule-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.draftcraft-sidebar {
+		grid-template-columns: 1fr;
+	}
+
+	.draftcraft-nav {
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+	}
+
+}
+
+@media (max-width: 600px) {
+
+	.draftcraft-header {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.draftcraft-csv-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.draftcraft-csv-footer {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.draftcraft-csv-footer .draftcraft-btn {
+		width: 100%;
+		justify-content: center;
+	}
+
+}
+
+/* ─────────────────────────────────────────────
+	Toast Notification
+	───────────────────────────────────────────── */
+.draftcraft-toast {
+	position: fixed;
+	bottom: 40px;
+	right: -400px;
+	background: var(--dc-surface);
+	color: var(--dc-text);
+	padding: 14px 20px;
+	border-radius: var(--dc-radius);
+	box-shadow: var(--dc-shadow-dropdown);
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	z-index: 999999;
+	font-size: 13px;
+	font-weight: 500;
+	border: 1px solid var(--dc-border-subtle);
+	border-left: 4px solid var(--dc-primary);
+	transition: right 0.3s ease, opacity 0.3s ease;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.draftcraft-toast.is-visible {
+	right: 40px;
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.draftcraft-toast svg {
+	width: 18px;
+	height: 18px;
+	color: var(--dc-primary);
+}
+
+/* Hide default WP notices on DraftCraft page so custom layout stays clean */
+.toplevel_page_draftcraft .notice,
+.toplevel_page_draftcraft .updated,
+.toplevel_page_draftcraft .error,
+.toplevel_page_draftcraft #setting-error-settings_updated {
+	display: none !important;
+}

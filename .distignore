@@ -1,0 +1,16 @@
+.git
+.github
+.gitignore
+.distignore
+.editorconfig
+README.md
+composer.json
+composer.lock
+package.json
+package-lock.json
+tests
+phpcs.xml
+phpcs.xml.dist
+phpunit.xml
+phpunit.xml.dist
+.wordpress-org
