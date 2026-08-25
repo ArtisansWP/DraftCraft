@@ -14,18 +14,16 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Sync Assets to SVN
+      - name: Install Subversion & Sync Assets
         env:
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
         run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq subversion
           mkdir -p /tmp/svn-assets
-          svn co https://plugins.svn.wordpress.org/draftcraft/assets /tmp/svn-assets --non-interactive --trust-server-cert --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
+          svn co "https://plugins.svn.wordpress.org/draftcraft/assets" /tmp/svn-assets --non-interactive --trust-server-cert --no-auth-cache --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
           cp -rf .wordpress-org/* /tmp/svn-assets/
           cd /tmp/svn-assets
           svn add --force * || true
-          if [ -n "$(svn status)" ]; then
-            svn commit -m "Update assets: banners and icons" --non-interactive --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
-          else
-            echo "No asset changes to commit to SVN."
-          fi
+          svn status
+          svn commit -m "Update assets: banners and icons" --non-interactive --trust-server-cert --no-auth-cache --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
