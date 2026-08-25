@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - '.wordpress-org/**'
   workflow_dispatch:
 
 jobs:
@@ -25,5 +23,9 @@ jobs:
           svn co https://plugins.svn.wordpress.org/draftcraft/assets /tmp/svn-assets --non-interactive --trust-server-cert --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
           cp -rf .wordpress-org/* /tmp/svn-assets/
           cd /tmp/svn-assets
-          svn add --force *
-          svn commit -m "Update assets: banners and icons" --non-interactive --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
+          svn add --force * || true
+          if [ -n "$(svn status)" ]; then
+            svn commit -m "Update assets: banners and icons" --non-interactive --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
+          else
+            echo "No asset changes to commit to SVN."
+          fi
