@@ -52,6 +52,120 @@ function draftcraft_substr( string $text, int $start, int $length ): string {
 
 
 /**
+ * Robust JSON extraction and recovery from AI model response.
+ *
+ * Handles markdown code fences, unescaped newlines in JSON strings,
+ * leading/trailing commentary, and broken JSON fallbacks.
+ *
+ * @since  1.2.3
+ * @param  string $content_raw Raw text from LLM response.
+ * @return array<string,mixed>|null Associative array with at least 'title' and 'content', or null on failure.
+ */
+function draftcraft_parse_model_json( string $content_raw ): ?array {
+	$content_raw = trim( $content_raw );
+	if ( '' === $content_raw ) {
+		return null;
+	}
+
+	// 1. Strip markdown fences if wrapped.
+	if ( preg_match( '/```(?:json)?\s*([\s\S]+?)(?:```|$)/i', $content_raw, $m ) ) {
+		$stripped = trim( $m[1] );
+	} else {
+		$stripped = $content_raw;
+	}
+
+	// 2. Extract substring from first { to last }.
+	$start = strpos( $stripped, '{' );
+	$end   = strrpos( $stripped, '}' );
+	if ( false !== $start && false !== $end && $end > $start ) {
+		$json_str = substr( $stripped, $start, $end - $start + 1 );
+	} else {
+		$json_str = $stripped;
+	}
+
+	// 3. Try direct json_decode.
+	$data = json_decode( $json_str, true );
+	if ( is_array( $data ) && ! empty( $data['title'] ) && ! empty( $data['content'] ) ) {
+		return $data;
+	}
+
+	// 4. Try fixing literal unescaped newlines and control characters inside JSON strings.
+	$fixed = preg_replace_callback(
+		'/"(?:[^"\\\\]|\\\\.)*"/',
+		function ( $matches ) {
+			return str_replace(
+				array( "\r\n", "\r", "\n", "\t", "\x00", "\x08", "\x0B", "\x0C", "\x1F" ),
+				array( '\n', '\n', '\n', '\t', '', '', '', '', '' ),
+				$matches[0]
+			);
+		},
+		$json_str
+	);
+
+	$data = json_decode( $fixed, true );
+	if ( is_array( $data ) && ! empty( $data['title'] ) && ! empty( $data['content'] ) ) {
+		return $data;
+	}
+
+	// 5. Robust regex fallback extraction for title and content.
+	$title   = '';
+	$content = '';
+
+	if ( preg_match( '/"title"\s*:\s*"((?:[^"\\\\]|\\\\.)*)"/i', $json_str, $tm ) ) {
+		$title = stripcslashes( $tm[1] );
+	}
+
+	if ( preg_match( '/"content"\s*:\s*"((?:[^"\\\\]|\\\\.)*)"/is', $fixed, $cm ) ) {
+		$content = stripcslashes( $cm[1] );
+	} elseif ( preg_match( '/"content"\s*:\s*"([\s\S]+)/i', $json_str, $cm ) ) {
+		// Content was truncated or has unescaped quotes.
+		$raw_c   = $cm[1];
+		$raw_c   = preg_replace( '/"\s*,\s*"(?:focus_keyword|meta_title|meta_description|faqs)"[\s\S]*$/i', '', $raw_c );
+		$raw_c   = preg_replace( '/"\s*\}?\s*$/', '', $raw_c );
+		$content = stripcslashes( $raw_c );
+	}
+
+	// 6. If title or content still empty, check if output is pure HTML or Markdown.
+	if ( empty( $title ) || empty( $content ) ) {
+		if ( preg_match( '/<h1[^>]*>(.*?)<\/h1>/is', $content_raw, $h1_m ) ) {
+			$title   = wp_strip_all_tags( $h1_m[1] );
+			$content = preg_replace( '/<h1[^>]*>.*?<\/h1>/is', '', $content_raw, 1 );
+		} elseif ( preg_match( '/^#\s+(.+)$/m', $content_raw, $h1_m ) ) {
+			$title   = trim( $h1_m[1] );
+			$content = preg_replace( '/^#\s+.+$/m', '', $content_raw, 1 );
+		}
+	}
+
+	if ( ! empty( $title ) && ! empty( $content ) ) {
+		$res = array(
+			'title'   => trim( $title ),
+			'content' => trim( $content ),
+		);
+
+		if ( preg_match( '/"focus_keyword"\s*:\s*"((?:[^"\\\\]|\\\\.)*)"/i', $json_str, $km ) ) {
+			$res['focus_keyword'] = stripcslashes( $km[1] );
+		}
+		if ( preg_match( '/"meta_title"\s*:\s*"((?:[^"\\\\]|\\\\.)*)"/i', $json_str, $mtm ) ) {
+			$res['meta_title'] = stripcslashes( $mtm[1] );
+		}
+		if ( preg_match( '/"meta_description"\s*:\s*"((?:[^"\\\\]|\\\\.)*)"/i', $json_str, $mdm ) ) {
+			$res['meta_description'] = stripcslashes( $mdm[1] );
+		}
+		if ( preg_match( '/"faqs"\s*:\s*(\[\s*\{[\s\S]*?\}\s*\])/i', $json_str, $fqm ) ) {
+			$faqs = json_decode( $fqm[1], true );
+			if ( is_array( $faqs ) ) {
+				$res['faqs'] = $faqs;
+			}
+		}
+
+		return $res;
+	}
+
+	return null;
+}//end draftcraft_parse_model_json()
+
+
+/**
  * Render a template/view file with an extracted scope.
  *
  * @since 1.2.1

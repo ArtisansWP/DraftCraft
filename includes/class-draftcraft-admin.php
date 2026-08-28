@@ -452,13 +452,9 @@ Format:
 	$decoded  = json_decode( $res_body, true );
 	$content  = ( $decoded['choices'][0]['message']['content'] ?? '' );
 
-	// Parse JSON from response.
-	// Clean potential markdown wrapping like ```json.
-	$content = preg_replace( '/^```(?:json)?\s*/i', '', trim( $content ) );
-	$content = preg_replace( '/\s*```$/', '', $content );
-
-	$parsed = json_decode( $content, true );
-	if ( JSON_ERROR_NONE !== json_last_error() || empty( $parsed['title'] ) || empty( $parsed['content'] ) ) {
+	// Parse JSON from response using resilient parser.
+	$parsed = draftcraft_parse_model_json( (string) $content );
+	if ( ! is_array( $parsed ) || empty( $parsed['title'] ) || empty( $parsed['content'] ) ) {
 		wp_send_json_error( array( 'message' => __( 'Could not parse updated content from AI response. Ensure instructions are valid.', 'draftcraft' ) ) );
 	}
 

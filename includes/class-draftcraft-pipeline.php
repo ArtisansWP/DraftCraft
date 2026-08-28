@@ -375,17 +375,10 @@ function draftcraft_execute_pipeline(): array {
 
 	$content_raw = $decoded['choices'][0]['message']['content'];
 
-	// Parse Model JSON.
-	$post_data = json_decode( $content_raw, true );
+	// Parse Model JSON using resilient parser.
+	$post_data = draftcraft_parse_model_json( $content_raw );
 
-	// Fallback: strip markdown code fences if model wrapped JSON in them.
-	if ( JSON_ERROR_NONE !== json_last_error() || empty( $post_data['title'] ) || empty( $post_data['content'] ) ) {
-		if ( preg_match( '/```(?:json)?\s*([\s\S]+?)\s*```/i', $content_raw, $m ) ) {
-			$post_data = json_decode( $m[1], true );
-		}
-	}
-
-	if ( JSON_ERROR_NONE !== json_last_error() || empty( $post_data['title'] ) || empty( $post_data['content'] ) ) {
+	if ( ! is_array( $post_data ) || empty( $post_data['title'] ) || empty( $post_data['content'] ) ) {
 		delete_transient( 'draftcraft_pipeline_lock' );
 		$msg = 'Invalid JSON structure returned by model.';
 		draftcraft_log( $msg . ' Raw: ' . substr( $content_raw, 0, 500 ) );
