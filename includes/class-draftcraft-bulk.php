@@ -437,12 +437,24 @@ class DraftCraft_Bulk {
 				<tbody>
 					<?php
 					foreach ( array_slice( $queue, 0, 50 ) as $row ) :
-						$del_url = wp_nonce_url(
+						$del_url       = wp_nonce_url(
 							add_query_arg(
 								array(
 									'page'   => 'draftcraft',
 									'tab'    => 'seo',
 									'draftcraft_queue_action' => 'delete',
+									'row_id' => ( $row['id'] ?? '' ),
+								),
+								admin_url( 'admin.php' )
+							),
+							'draftcraft_queue_action'
+						);
+						$retry_row_url = wp_nonce_url(
+							add_query_arg(
+								array(
+									'page'   => 'draftcraft',
+									'tab'    => 'seo',
+									'draftcraft_queue_action' => 'retry_single',
 									'row_id' => ( $row['id'] ?? '' ),
 								),
 								admin_url( 'admin.php' )
@@ -463,12 +475,19 @@ class DraftCraft_Bulk {
 								<?php
 								$draftcraft_row_st   = ( $row['status'] ?? 'pending' );
 								$draftcraft_row_pill = 'done' === $draftcraft_row_st ? 'ok' : ( 'failed' === $draftcraft_row_st ? 'warn' : 'info' );
+								$draftcraft_fail_msg = ( ! empty( $row['fail_reason'] ) ? $row['fail_reason'] : '' );
 								?>
-								<span class="draftcraft-pill draftcraft-pill--<?php echo esc_attr( $draftcraft_row_pill ); ?>">
+								<span class="draftcraft-pill draftcraft-pill--<?php echo esc_attr( $draftcraft_row_pill ); ?>"<?php echo '' !== $draftcraft_fail_msg ? ' title="' . esc_attr( $draftcraft_fail_msg ) . '" style="cursor:help;"' : ''; ?>>
 									<?php echo esc_html( ucfirst( $draftcraft_row_st ) ); ?>
 								</span>
 							</td>
 							<td>
+								<?php if ( 'failed' === $draftcraft_row_st ) : ?>
+									<a href="<?php echo esc_url( $retry_row_url ); ?>" style="color:var(--dc-primary); font-size:12px; text-decoration:none; margin-right:8px;" title="<?php esc_attr_e( 'Retry generating this keyword', 'draftcraft' ); ?>">
+										<span class="dashicons dashicons-update" style="font-size:14px; width:14px; height:14px; vertical-align:text-bottom;"></span>
+										<?php esc_html_e( 'Retry', 'draftcraft' ); ?>
+									</a>
+								<?php endif; ?>
 								<a href="<?php echo esc_url( $del_url ); ?>" style="color:var(--dc-red); font-size:12px; text-decoration:none;" title="<?php esc_attr_e( 'Remove from queue', 'draftcraft' ); ?>">
 									<span class="dashicons dashicons-trash" style="font-size:14px; width:14px; height:14px; vertical-align:text-bottom;"></span>
 									<?php esc_html_e( 'Remove', 'draftcraft' ); ?>
@@ -528,6 +547,22 @@ class DraftCraft_Bulk {
 			$queue  = array_values( array_filter( $queue, static fn( $r ) => ( $r['id'] ?? '' ) !== $row_id ) );
 			self::save_queue( $queue );
 			self::redirect_with_notice( 'success', __( 'Queue item removed.', 'draftcraft' ) );
+		}
+
+		if ( 'retry_single' === $action && isset( $_GET['row_id'] ) ) {
+			$row_id = sanitize_text_field( wp_unslash( $_GET['row_id'] ) );
+			$queue  = self::get_queue();
+			foreach ( $queue as &$row ) {
+				if ( ( $row['id'] ?? '' ) === $row_id ) {
+					$row['status']      = 'pending';
+					$row['fail_reason'] = '';
+					break;
+				}
+			}
+
+			unset( $row );
+			self::save_queue( $queue );
+			self::redirect_with_notice( 'success', __( 'Item reset to pending.', 'draftcraft' ) );
 		}
 
 		if ( 'retry_failed' === $action ) {
