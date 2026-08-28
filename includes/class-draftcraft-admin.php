@@ -337,7 +337,7 @@ function draftcraft_enqueue_editor_assets( string $hook ): void {
 				'noInstruction' => __( 'Please enter some instructions for the AI.', 'draftcraft' ),
 				'applying'      => __( 'Applying changes…', 'draftcraft' ),
 				'working'       => __( 'AI is rewriting… Please wait. This can take up to a minute.', 'draftcraft' ),
-				'success'       => __( 'Success! Reloading page…', 'draftcraft' ),
+				'success'       => __( 'AI changes applied successfully!', 'draftcraft' ),
 				'error'         => __( 'An error occurred.', 'draftcraft' ),
 				'serverError'   => __( 'Could not contact server.', 'draftcraft' ),
 				'btnLabel'      => __( 'Apply AI Changes', 'draftcraft' ),
@@ -481,7 +481,13 @@ Format:
 		wp_send_json_error( array( 'message' => $update_result->get_error_message() ) );
 	}
 
-	wp_send_json_success();
+	wp_send_json_success(
+		array(
+			'title'   => sanitize_text_field( $parsed['title'] ),
+			'content' => $edited_content,
+			'message' => __( 'AI changes applied successfully!', 'draftcraft' ),
+		)
+	);
 }//end draftcraft_ajax_ai_edit_post()
 
 

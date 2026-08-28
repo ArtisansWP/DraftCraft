@@ -76,13 +76,47 @@
 					},
 					success: function ( response ) {
 						if (response.success) {
-							$status.css( 'color', '#00a32a' )
-							.text( Data.strings.success || 'Success! Reloading page\u2026' );
-							setTimeout(
-								function () {
-									window.location.reload();
-								},
-								1000
+							var updatedTitle   = ( response.data && response.data.title ) ? response.data.title : '';
+							var updatedContent = ( response.data && response.data.content ) ? response.data.content : '';
+
+							// 1. Gutenberg (Block Editor) integration.
+							if (typeof wp !== 'undefined' && wp.data && typeof wp.data.dispatch === 'function') {
+								// Update post title in Gutenberg store.
+								if (updatedTitle && wp.data.dispatch( 'core/editor' ) && typeof wp.data.dispatch( 'core/editor' ).editPost === 'function') {
+									wp.data.dispatch( 'core/editor' ).editPost( { title: updatedTitle } );
+								}
+
+								// Parse updated HTML into Gutenberg blocks and update canvas without reload.
+								if (updatedContent && typeof wp.blocks !== 'undefined' && typeof wp.blocks.parse === 'function') {
+									var parsedBlocks = wp.blocks.parse( updatedContent );
+									if (wp.data.dispatch( 'core/block-editor' ) && typeof wp.data.dispatch( 'core/block-editor' ).resetBlocks === 'function') {
+										wp.data.dispatch( 'core/block-editor' ).resetBlocks( parsedBlocks );
+									} else if (wp.data.dispatch( 'core/editor' ) && typeof wp.data.dispatch( 'core/editor' ).resetBlocks === 'function') {
+										wp.data.dispatch( 'core/editor' ).resetBlocks( parsedBlocks );
+									}
+								}
+							}
+
+							// 2. Classic Editor (TinyMCE / Textarea) integration.
+							if ($( '#title' ).length && updatedTitle) {
+								$( '#title' ).val( updatedTitle ).trigger( 'change' );
+							}
+							if (typeof tinyMCE !== 'undefined' && tinyMCE.get( 'content' ) && ! tinyMCE.get( 'content' ).isHidden()) {
+								if (updatedContent) {
+									tinyMCE.get( 'content' ).setContent( updatedContent );
+								}
+							} else if ($( '#content' ).length && updatedContent) {
+								$( '#content' ).val( updatedContent ).trigger( 'change' );
+							}
+
+							// Clear instructions field and show success status.
+							$( '#draftcraft_ai_instruction' ).val( '' );
+							$status.css( 'color', '#00875a' )
+							.text( '\u2713 ' + ( ( response.data && response.data.message ) || Data.strings.success || 'AI changes applied successfully!' ) );
+
+							$btn.prop( 'disabled', false )
+							.html(
+								'<span class="dashicons dashicons-admin-customizer" style="font-size:16px;width:16px;height:16px;margin:0;"></span> ' + ( Data.strings.btnLabel || 'Apply AI Changes' )
 							);
 							return;
 						}
