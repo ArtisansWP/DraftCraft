@@ -542,9 +542,31 @@ class DraftCraft_Bulk {
 								<?php
 								$draftcraft_row_st   = ( $row['status'] ?? 'pending' );
 								$draftcraft_row_pill = 'done' === $draftcraft_row_st ? 'ok' : ( 'failed' === $draftcraft_row_st ? 'warn' : 'info' );
-								$draftcraft_fail_msg = ( ! empty( $row['fail_reason'] ) ? $row['fail_reason'] : '' );
+								$draftcraft_sched    = ( $row['scheduled_date'] ?? '' );
+								$draftcraft_today    = current_time( 'Y-m-d' );
+								$draftcraft_tooltip  = '';
+
+								if ( 'pending' === $draftcraft_row_st ) {
+									if ( '' === $draftcraft_sched || 'ASAP' === $draftcraft_sched || $draftcraft_sched <= $draftcraft_today ) {
+										$draftcraft_tooltip = __( 'Due for generation: Will be written on the next scheduled run or when you click "Generate Post Now".', 'draftcraft' );
+									} else {
+										$draftcraft_tooltip = sprintf(
+											/* translators: %s: scheduled generation date */
+											__( 'Queued for future generation on %s.', 'draftcraft' ),
+											$draftcraft_sched
+										);
+									}
+								} elseif ( 'failed' === $draftcraft_row_st ) {
+									$draftcraft_tooltip = ! empty( $row['fail_reason'] ) ? sprintf(
+										/* translators: %s: failure reason */
+										__( 'Generation failed: %s (Click Retry to run again)', 'draftcraft' ),
+										$row['fail_reason']
+									) : __( 'Generation failed. Click Retry to run again.', 'draftcraft' );
+								} elseif ( 'done' === $draftcraft_row_st ) {
+									$draftcraft_tooltip = __( 'Post generated successfully.', 'draftcraft' );
+								}
 								?>
-								<span class="draftcraft-pill draftcraft-pill--<?php echo esc_attr( $draftcraft_row_pill ); ?>"<?php echo '' !== $draftcraft_fail_msg ? ' title="' . esc_attr( $draftcraft_fail_msg ) . '" style="cursor:help;"' : ''; ?>>
+								<span class="draftcraft-pill draftcraft-pill--<?php echo esc_attr( $draftcraft_row_pill ); ?>"<?php echo '' !== $draftcraft_tooltip ? ' title="' . esc_attr( $draftcraft_tooltip ) . '" style="cursor:help;"' : ''; ?>>
 									<?php echo esc_html( ucfirst( $draftcraft_row_st ) ); ?>
 								</span>
 							</td>
@@ -1103,7 +1125,7 @@ class DraftCraft_Bulk {
 		<div class="draftcraft-section">
 			<div class="draftcraft-section-header">
 				<h2><?php esc_html_e( 'Keyword Queue', 'draftcraft' ); ?></h2>
-				<p><?php esc_html_e( 'Next generation run picks the next due item.', 'draftcraft' ); ?></p>
+				<p><?php esc_html_e( 'Due items (ASAP or scheduled for today) are written sequentially on each cron interval or when clicking "Generate Post Now".', 'draftcraft' ); ?></p>
 			</div>
 			<div class="draftcraft-section-body" id="draftcraft-queue-body">
 				<?php
