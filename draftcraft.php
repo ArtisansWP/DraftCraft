@@ -3,7 +3,7 @@
  * Plugin Name:       DraftCraft
  * Plugin URI:        https://artisanswp.com/plugin/draftcraft/
  * Description:       Never run out of blog content. DraftCraft uses AI (via your OpenRouter key) to write and schedule high-quality draft posts, with featured images, SEO sync, FAQs, TOC, internal links, and bulk keyword queues.
- * Version:           1.2.2
+ * Version:           1.2.3
  * Requires at least: 6.0
  * Requires PHP:      8.0
  * Author:            ArtisansWP
@@ -25,7 +25,7 @@ defined( 'ABSPATH' ) || exit;
 // ============================================================
 // Constants
 // ============================================================
-define( 'DRAFTCRAFT_VERSION', '1.2.2' );
+define( 'DRAFTCRAFT_VERSION', '1.2.3' );
 define( 'DRAFTCRAFT_PLUGIN_FILE', __FILE__ );
 define( 'DRAFTCRAFT_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'DRAFTCRAFT_PLUGIN_URL', plugin_dir_url( __FILE__ ) );

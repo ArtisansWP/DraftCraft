@@ -4,7 +4,7 @@ Tags: ai, content generator, auto blog, post scheduler, seo
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.2.2
+Stable tag: 1.2.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -121,6 +121,13 @@ When generating content, DraftCraft communicates directly with OpenRouter (and U
 Your API key is stored safely in your own WordPress database (`wp_options`) and is always masked (••••••••) in the administrative interface.
 
 == Changelog ==
+
+= 1.2.3 =
+* Fix: Multi-layer resilient JSON parser for AI model responses preventing JSON decode errors.
+* Fix: Remove unsupported response_format parameter causing HTTP 400 errors on OpenRouter.
+* Enhancement: Seamless AJAX retry and deletion in keyword queue without page reload or jumping.
+* Enhancement: Added smart scheduling tooltips and failure reason popups on queue status badges.
+* Enhancement: Added keyword queue navigation callout in Content settings tab.
 
 = 1.2.2 =
 * Initial release on WordPress.org.
