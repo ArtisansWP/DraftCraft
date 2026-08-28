@@ -85,6 +85,7 @@ function draftcraft_enqueue_assets( string $hook ): void {
 			'pipelineBusy'       => (bool) get_transient( 'draftcraft_pipeline_lock' ),
 			'fetchNonce'         => wp_create_nonce( 'draftcraft_fetch_models' ),
 			'nonceCsvImport'     => wp_create_nonce( 'draftcraft_import_csv' ),
+			'nonceQueueAction'   => wp_create_nonce( 'draftcraft_queue_action' ),
 			'cachedModels'       => ! empty( $cached_models ) ? $cached_models : array(),
 			'cachedImageModels'  => ! empty( $cached_image_models ) ? $cached_image_models : array(),
 			'savedModel'         => draftcraft_get_active_model( $settings_inline ),

@@ -658,6 +658,65 @@
 		}
 	);
 
+	// Keyword Queue Action Click Handler (AJAX — no page jump or reload).
+	$( document ).on(
+		'click',
+		'.draftcraft-queue-action-link',
+		function ( e ) {
+			const $link  = $( this );
+			const action = $link.data( 'action' );
+			const rowId  = $link.data( 'row-id' ) || '';
+
+			if ( ! action ) {
+				return;
+			}
+
+			e.preventDefault();
+
+			if ( 'clear' === action ) {
+				if ( ! window.confirm( strings.confirmClearQueue || 'This will permanently clear the entire keyword queue. Continue?' ) ) {
+					return;
+				}
+			}
+
+			$link.css( 'opacity', '0.4' );
+
+			$.ajax(
+				{
+					url: Data.ajaxUrl,
+					method: 'POST',
+					data: {
+						action: 'draftcraft_queue_ajax_action',
+						nonce: Data.nonceQueueAction || '',
+						queue_action: action,
+						row_id: rowId
+					}
+				}
+			).done(
+				function ( response ) {
+					if ( response && response.success && response.data ) {
+						const d = response.data;
+						if ( d.queue_html && $queueBody.length ) {
+							$queueBody.html( d.queue_html );
+						}
+
+						if ( $queueStatsTxt.length ) {
+							const tpl = strings.queueStats || '%1$d pending · %2$d total in queue';
+							$queueStatsTxt.text(
+								tpl.replace( '%1$d', String( d.pending || 0 ) )
+								.replace( '%2$d', String( d.total || 0 ) )
+							);
+						}
+					}
+				}
+			).always(
+				function () {
+					$link.css( 'opacity', '1' );
+				}
+			);
+		}
+	);
+
 	// Unsaved Changes Tracker.
 	let isDirty         = false;
 	const $saveWidget   = $( '#draftcraft-save-widget' );

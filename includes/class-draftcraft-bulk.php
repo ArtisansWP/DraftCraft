@@ -34,6 +34,7 @@ class DraftCraft_Bulk {
 		add_action( 'admin_init', array( __CLASS__, 'handle_queue_actions' ) );
 		add_action( 'admin_init', array( __CLASS__, 'handle_sample_csv_download' ) );
 		add_action( 'wp_ajax_draftcraft_import_csv', array( __CLASS__, 'ajax_import_csv' ) );
+		add_action( 'wp_ajax_draftcraft_queue_ajax_action', array( __CLASS__, 'ajax_queue_action' ) );
 	}//end init()
 
 
@@ -277,6 +278,72 @@ class DraftCraft_Bulk {
 
 
 	/**
+	 * AJAX handler for keyword queue actions (retry single, retry all failed, delete, clear).
+	 *
+	 * @since 1.2.3
+	 */
+	public static function ajax_queue_action(): void {
+		check_ajax_referer( 'draftcraft_queue_action', 'nonce' );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => __( 'Insufficient permissions.', 'draftcraft' ) ) );
+		}
+
+		$action = sanitize_key( wp_unslash( ( $_POST['queue_action'] ?? '' ) ) );
+		$row_id = sanitize_text_field( wp_unslash( ( $_POST['row_id'] ?? '' ) ) );
+		$queue  = self::get_queue();
+		$msg    = '';
+
+		if ( 'clear' === $action ) {
+			$queue = array();
+			self::save_queue( $queue );
+			$msg = __( 'Keyword queue cleared.', 'draftcraft' );
+		} elseif ( 'delete' === $action && '' !== $row_id ) {
+			$queue = array_values( array_filter( $queue, static fn( $r ) => ( $r['id'] ?? '' ) !== $row_id ) );
+			self::save_queue( $queue );
+			$msg = __( 'Queue item removed.', 'draftcraft' );
+		} elseif ( 'retry_single' === $action && '' !== $row_id ) {
+			foreach ( $queue as &$row ) {
+				if ( ( $row['id'] ?? '' ) === $row_id ) {
+					$row['status']      = 'pending';
+					$row['fail_reason'] = '';
+					break;
+				}
+			}
+
+			unset( $row );
+			self::save_queue( $queue );
+			$msg = __( 'Item reset to pending.', 'draftcraft' );
+		} elseif ( 'retry_failed' === $action ) {
+			foreach ( $queue as &$row ) {
+				if ( 'failed' === ( $row['status'] ?? '' ) ) {
+					$row['status']      = 'pending';
+					$row['fail_reason'] = '';
+				}
+			}
+
+			unset( $row );
+			self::save_queue( $queue );
+			$msg = __( 'Failed items reset to pending.', 'draftcraft' );
+		} else {
+			wp_send_json_error( array( 'message' => __( 'Invalid action.', 'draftcraft' ) ) );
+		}
+
+		$pending = count( array_filter( $queue, static fn( $r ) => 'pending' === ( $r['status'] ?? 'pending' ) ) );
+		$total   = count( $queue );
+
+		wp_send_json_success(
+			array(
+				'queue_html' => self::get_queue_table_html( $queue ),
+				'pending'    => $pending,
+				'total'      => $total,
+				'message'    => $msg,
+			)
+		);
+	}//end ajax_queue_action()
+
+
+	/**
 	 * Parse uploaded CSV and merge into the keyword queue.
 	 *
 	 * @since  1.2.0
@@ -483,12 +550,12 @@ class DraftCraft_Bulk {
 							</td>
 							<td>
 								<?php if ( 'failed' === $draftcraft_row_st ) : ?>
-									<a href="<?php echo esc_url( $retry_row_url ); ?>" style="color:var(--dc-primary); font-size:12px; text-decoration:none; margin-right:8px;" title="<?php esc_attr_e( 'Retry generating this keyword', 'draftcraft' ); ?>">
+									<a href="<?php echo esc_url( $retry_row_url ); ?>" class="draftcraft-queue-action-link" data-action="retry_single" data-row-id="<?php echo esc_attr( (string) ( $row['id'] ?? '' ) ); ?>" style="color:var(--dc-primary); font-size:12px; text-decoration:none; margin-right:8px;" title="<?php esc_attr_e( 'Retry generating this keyword', 'draftcraft' ); ?>">
 										<span class="dashicons dashicons-update" style="font-size:14px; width:14px; height:14px; vertical-align:text-bottom;"></span>
 										<?php esc_html_e( 'Retry', 'draftcraft' ); ?>
 									</a>
 								<?php endif; ?>
-								<a href="<?php echo esc_url( $del_url ); ?>" style="color:var(--dc-red); font-size:12px; text-decoration:none;" title="<?php esc_attr_e( 'Remove from queue', 'draftcraft' ); ?>">
+								<a href="<?php echo esc_url( $del_url ); ?>" class="draftcraft-queue-action-link draftcraft-queue-action-link--danger" data-action="delete" data-row-id="<?php echo esc_attr( (string) ( $row['id'] ?? '' ) ); ?>" style="color:var(--dc-red); font-size:12px; text-decoration:none;" title="<?php esc_attr_e( 'Remove from queue', 'draftcraft' ); ?>">
 									<span class="dashicons dashicons-trash" style="font-size:14px; width:14px; height:14px; vertical-align:text-bottom;"></span>
 									<?php esc_html_e( 'Remove', 'draftcraft' ); ?>
 								</a>
@@ -1008,12 +1075,12 @@ class DraftCraft_Bulk {
 						</span>
 					</div>
 					<div class="draftcraft-queue-status-actions">
-						<a href="<?php echo esc_url( $retry_url ); ?>" class="draftcraft-queue-action-link">
+						<a href="<?php echo esc_url( $retry_url ); ?>" class="draftcraft-queue-action-link" data-action="retry_failed">
 							<span class="dashicons dashicons-update"></span>
 							<?php esc_html_e( 'Retry Failed', 'draftcraft' ); ?>
 						</a>
 						<span class="draftcraft-cat-action-sep">•</span>
-						<a href="<?php echo esc_url( $clear_url ); ?>" class="draftcraft-queue-action-link draftcraft-queue-action-link--danger" onclick="return confirm('<?php echo esc_js( __( 'This will permanently clear the entire keyword queue. Continue?', 'draftcraft' ) ); ?>');">
+						<a href="<?php echo esc_url( $clear_url ); ?>" class="draftcraft-queue-action-link draftcraft-queue-action-link--danger" data-action="clear" onclick="return confirm('<?php echo esc_js( __( 'This will permanently clear the entire keyword queue. Continue?', 'draftcraft' ) ); ?>');">
 							<span class="dashicons dashicons-trash"></span>
 							<?php esc_html_e( 'Clear Queue', 'draftcraft' ); ?>
 						</a>
