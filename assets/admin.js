@@ -982,6 +982,36 @@
 		}
 	);
 
+	// Tab switch shortcut links (e.g. Content tab -> SEO tab).
+	$( document ).on(
+		'click',
+		'.draftcraft-tab-switch',
+		function ( e ) {
+			const targetTab = $( this ).data( 'tab' );
+			if ( ! targetTab ) {
+				return;
+			}
+
+			const $targetNavItem = $( '.draftcraft-nav-item[data-tab="' + targetTab + '"]' );
+			const $targetPanel   = $( '#draftcraft-panel-' + targetTab );
+
+			if ( $targetNavItem.length && $targetPanel.length ) {
+				e.preventDefault();
+				$( '.draftcraft-nav-item' ).removeClass( 'is-active' );
+				$targetNavItem.addClass( 'is-active' );
+
+				$( '.draftcraft-panel' ).removeClass( 'is-active' );
+				$targetPanel.addClass( 'is-active' );
+
+				const currentUrl = new URL( window.location.href );
+				currentUrl.searchParams.set( 'tab', targetTab );
+				window.history.pushState( {}, '', currentUrl.toString() );
+
+				window.scrollTo( { top: 0, behavior: 'smooth' } );
+			}
+		}
+	);
+
 	// Utility.
 	function escHtml( str )
 	{

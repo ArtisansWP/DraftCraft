@@ -180,6 +180,24 @@ $draftcraft_tax_singular = ! empty( $draftcraft_tax_obj->labels->singular_name )
 				<?php endif; ?>
 			</div>
 
+			<div class="draftcraft-feature-card" style="margin-bottom:16px; background:#f8fafc; border-left:3px solid var(--dc-primary);">
+				<div class="draftcraft-feature-card-header" style="align-items:center;">
+					<div class="draftcraft-feature-card-info">
+						<strong>
+							<span class="dashicons dashicons-search" style="color:var(--dc-primary);"></span>
+							<?php esc_html_e( 'Keyword-Driven Content Queue', 'draftcraft' ); ?>
+						</strong>
+						<p class="draftcraft-description" style="margin:0;">
+							<?php esc_html_e( 'Prefer writing articles around specific target keywords instead of category rotation? Manage your keyword queue in the SEO tab.', 'draftcraft' ); ?>
+						</p>
+					</div>
+					<a href="<?php echo esc_url( add_query_arg( 'tab', 'seo', menu_page_url( 'draftcraft', false ) ) ); ?>" class="draftcraft-btn draftcraft-btn--outline draftcraft-tab-switch" data-tab="seo" style="white-space:nowrap; text-decoration:none;">
+						<span class="dashicons dashicons-arrow-right-alt"></span>
+						<?php esc_html_e( 'Manage Keyword Queue', 'draftcraft' ); ?>
+					</a>
+				</div>
+			</div>
+
 			<div class="draftcraft-field" style="margin-bottom:0;">
 				<div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:8px; flex-wrap:wrap; gap:8px;">
 					<div>
