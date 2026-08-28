@@ -413,7 +413,14 @@ function draftcraft_parse_api_error( int $http_code, string $body, string $provi
 	if ( ! empty( $body ) ) {
 		$decoded = json_decode( $body, true );
 		if ( is_array( $decoded ) ) {
-			if ( ! empty( $decoded['error']['message'] ) && is_string( $decoded['error']['message'] ) ) {
+			if ( ! empty( $decoded['error']['metadata']['raw'] ) && is_string( $decoded['error']['metadata']['raw'] ) ) {
+				$raw_err = json_decode( $decoded['error']['metadata']['raw'], true );
+				if ( is_array( $raw_err ) && ! empty( $raw_err['error']['message'] ) ) {
+					$api_msg = trim( (string) $raw_err['error']['message'] );
+				} else {
+					$api_msg = trim( $decoded['error']['metadata']['raw'] );
+				}
+			} elseif ( ! empty( $decoded['error']['message'] ) && is_string( $decoded['error']['message'] ) ) {
 				$api_msg = trim( $decoded['error']['message'] );
 			} elseif ( ! empty( $decoded['error'] ) && is_string( $decoded['error'] ) ) {
 				$api_msg = trim( $decoded['error'] );

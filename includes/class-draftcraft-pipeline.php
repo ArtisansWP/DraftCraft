@@ -248,8 +248,8 @@ function draftcraft_execute_pipeline(): array {
 
 	// Payload preparation.
 	$payload = array(
-		'model'           => $model,
-		'messages'        => array(
+		'model'    => $model,
+		'messages' => array(
 			array(
 				'role'    => 'system',
 				'content' => $system_prompt,
@@ -259,7 +259,6 @@ function draftcraft_execute_pipeline(): array {
 				'content' => $user_prompt,
 			),
 		),
-		'response_format' => array( 'type' => 'json_object' ),
 	);
 
 	/*
