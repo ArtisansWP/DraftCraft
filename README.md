@@ -1,8 +1,8 @@
 # DraftCraft
 
-AI Blog Post Scheduler and Content Automation Plugin for WordPress.
+AI Blog Post Writer and Drafting Assistant for WordPress.
 
-DraftCraft connects your WordPress site to OpenRouter to draft, optimize, and schedule blog posts automatically. It includes SEO metadata sync, auto featured images, smart internal linking, Table of Contents, FAQ schema markup, and bulk keyword queue management.
+DraftCraft connects your WordPress site to OpenRouter to prepare SEO-ready blog post drafts that you review, edit, and publish in your own voice. It includes SEO metadata sync, featured images, internal linking, Table of Contents, FAQ schema markup, and a keyword CSV queue.
 
 ---
 

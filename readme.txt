@@ -1,78 +1,75 @@
-=== DraftCraft ===
+=== DraftCraft – AI Blog Post Writer & Drafting Assistant ===
 Contributors: artisanswp
-Tags: ai, content generator, auto blog, post scheduler, seo
+Tags: ai writer, ai content, blog post, seo, content generator
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.2.3
+Stable tag: 1.2.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Automated AI blog post scheduler via OpenRouter. Features SEO plugin sync, auto featured images, internal linking, FAQ schema, and bulk CSV queue.
+Write blog posts faster. DraftCraft creates SEO-ready AI drafts you review, edit, and publish in your own voice. Works with any OpenRouter model.
 
 == Description ==
 
-DraftCraft is an automated AI blogging and content generation plugin for WordPress. Connect your OpenRouter API key to generate SEO-optimized articles on a schedule using models like Claude, GPT-4o, DeepSeek, Gemini, and Llama.
+DraftCraft is an AI drafting assistant for WordPress bloggers, content teams, and agencies. It prepares well-structured, SEO-ready blog post drafts, so you spend your time editing and adding your expertise instead of staring at a blank page.
 
-Every generated post lands in your WordPress dashboard as a draft for you to review, or goes live automatically if you prefer.
+DraftCraft is built to support writers, not replace them. Every post is saved as a draft by default. You review it, edit it with the built-in AI assistant, and publish it when it sounds like you.
 
-= Comprehensive Features =
+Connect your own OpenRouter API key and choose the model that fits the job, including Claude, GPT-4o, Gemini, DeepSeek, and Llama. Use a fast, low-cost model for early drafts, or a more capable one when you want a draft that is close to ready.
 
-* **📅 Automated Scheduling & Cron Engine**: Hourly, twice-daily, daily, or weekly automation via WordPress Cron, plus on-demand "Generate Post Now".
-* **🤖 Multi-Model AI Integration**: Choose any OpenRouter language or image model with live dynamic model fetching and 24-hour caching.
-* **✍️ Writing & Image Style Controls**: Customize brand voice, target audience, tone, and visual guidelines through dedicated system prompts.
-* **🗂️ Category Selection & Smart Rotation**: Assign posts to chosen categories with automated cycling and drag-and-drop hierarchy sorting.
-* **🏷️ Taxonomy AI Description Generator**: Generate rich, SEO-friendly category and tag descriptions with one click directly from the term editor.
-* **📝 Post Editor AI Assistant Metabox**: Refine, expand, or rewrite generated drafts directly inside the Gutenberg or Classic editor.
-* **📈 Complete SEO Plugin Sync**: Auto-populate focus keywords, SEO titles, and meta descriptions for Rank Math, Yoast SEO, and All in One SEO (AIOSEO).
-* **🖼️ Automated Featured Images**: Generate AI images using OpenRouter models (Flux, DALL·E, etc.) or fetch curated photos via Unsplash.
-* **🔗 Smart Internal Linking**: Intelligent semantic matching and keyword insertion to connect your articles and boost site architecture.
-* **❓ FAQ Schema (JSON-LD)**: Generate relevant FAQs formatted with valid Schema.org `FAQPage` JSON-LD structured data.
-* **📑 Table of Contents (TOC)**: Auto-generate navigation TOCs from H2/H3 headings with custom smooth scroll offsets and Rank Math compatibility.
-* **📥 Bulk Keyword CSV Queue**: Import keyword spreadsheets with custom instructions and target dates to automate your editorial calendar.
-* **📋 AI Drafts Queue Dashboard**: Track, preview, edit, and publish AI-generated posts from a clean admin panel.
-* **🔒 Strict Security Standards**: Enterprise-level sanitization, nonce protection, capability verification, and masked database key storage.
+= Who DraftCraft is for =
 
-= How is the content quality? =
+* Bloggers who want to publish consistently without losing their own voice.
+* Content teams that need a steady flow of first drafts for editors to shape.
+* Agencies managing content for several client sites.
+* Small businesses that want helpful, search-friendly articles without hiring a full content team.
 
-DraftCraft gives you full control over the writing style through a custom system prompt. You can tell the AI to write in your brand voice, target a specific audience, match your existing tone, and include any topic-specific instructions. You choose the AI model: use a faster, lighter model for drafts or a more powerful one for near-publish-ready content.
+= How it works =
 
-All posts are created as drafts by default so you review them first. Think of it as having a dedicated first-draft writer on your team: it does the heavy lifting, you apply the finishing touches.
+1. Add your OpenRouter API key and pick a model.
+2. Describe your brand voice, audience, and tone in the writing style prompt.
+3. Choose categories, add keywords, or import a keyword CSV.
+4. DraftCraft creates drafts on your schedule or on demand.
+5. Review, refine with the editor assistant, and publish.
 
-= Is it safe for SEO? =
+= Drafting and editing =
 
-Yes, with the right setup. DraftCraft-generated posts are regular WordPress posts. Whether they help or hurt SEO depends on the quality of your prompts and the model you choose. We recommend:
-- Keeping Post Status set to **Draft** and reviewing before publishing.
-- Writing a detailed system prompt that matches your site's niche and voice.
-- Enabling SEO Sync so each post gets a proper focus keyword, title, and meta description.
+* **Post editor AI assistant:** refine, expand, or rewrite any section of a draft directly in the block editor or the Classic editor.
+* **Writing style controls:** set your brand voice, target audience, tone, and topic-specific instructions through a custom system prompt.
+* **Drafts queue dashboard:** track, preview, edit, and publish AI-assisted drafts from one clean admin screen.
+* **Draft-first by default:** posts are saved as drafts for review. Automatic publishing is available if you choose it.
 
-= Security Practices =
+= SEO features =
 
-DraftCraft adheres strictly to WordPress security best practices: capability checks (`manage_options`, `edit_posts`), nonce verification on all submissions and AJAX actions, thorough sanitization of inputs, and complete escaping on outputs. API keys are safely stored in your WordPress database and masked in the admin interface.
+* **SEO plugin sync:** fills in the focus keyword, SEO title, and meta description for Rank Math, Yoast SEO, and All in One SEO (AIOSEO).
+* **FAQ schema:** generates relevant FAQs with valid Schema.org FAQPage JSON-LD structured data.
+* **Table of contents:** builds a TOC from H2 and H3 headings, with smooth-scroll offsets and Rank Math compatibility.
+* **Internal linking:** suggests and inserts links to related posts on your site using semantic and keyword matching.
+* **Category and tag descriptions:** generates helpful, SEO-friendly term descriptions with one click from the term editor.
 
-= Third-Party Services =
+= Planning and scheduling =
 
-DraftCraft connects to external services when you configure and use those features. Your prompts, settings, and related content may be sent to these providers so they can generate text or images.
+* **Scheduled drafts:** hourly, twice daily, daily, or weekly via WP-Cron, plus a "Generate Post Now" button.
+* **Keyword CSV queue:** import a keyword spreadsheet with custom instructions and target dates to plan your editorial calendar.
+* **Category rotation:** assign drafts to chosen categories, with automatic rotation and drag-and-drop ordering.
 
-**OpenRouter** (required for AI content; optional for AI images)
+= Featured images =
 
-* Used when you generate posts or OpenRouter-based featured images.
-* Data sent may include your API key (in the Authorization header), model choice, system/user prompts, category context, and article JSON responses.
-* Website: [https://openrouter.ai/](https://openrouter.ai/)
-* Terms: [https://openrouter.ai/terms](https://openrouter.ai/terms)
-* Privacy: [https://openrouter.ai/privacy](https://openrouter.ai/privacy)
+* **AI images:** generate featured images with OpenRouter image models such as Flux.
+* **Stock photos:** or fetch a relevant photo from Unsplash instead.
+* **Visual style guidelines:** describe the look you want so images stay consistent across your site.
 
-**Unsplash** (optional, only if Image Provider = Unsplash)
+= Models and flexibility =
 
-* Used to search and download a stock photo for the featured image.
-* Data sent may include your Unsplash access key and a search query derived from the post title/keyword.
-* Website: [https://unsplash.com/](https://unsplash.com/)
-* API / Developer Terms: [https://unsplash.com/api-terms](https://unsplash.com/api-terms)
-* Privacy Policy: [https://unsplash.com/privacy](https://unsplash.com/privacy)
+* **Any OpenRouter model:** DraftCraft fetches the current model list live and caches it for 24 hours.
+* **Your keys, your account:** you connect directly to OpenRouter and Unsplash. No ArtisansWP account is needed, and your keys are never routed through our servers.
 
-No account with ArtisansWP is required. You supply your own API keys directly to OpenRouter and Unsplash. DraftCraft does not proxy those keys through ArtisansWP servers.
+= Built with WordPress security standards =
 
-Rank Math, Yoast SEO, All in One SEO, OpenRouter, Unsplash, and model names are trademarks of their respective owners. DraftCraft is not affiliated with or endorsed by those projects.
+DraftCraft follows WordPress security best practices: capability checks (`manage_options`, `edit_posts`), nonce verification on every form and AJAX action, sanitization of all input, and escaping of all output. API keys are stored in your WordPress database and masked in the admin screens.
+
+DraftCraft is built and maintained by ArtisansWP, a senior-led WordPress engineering studio. We built it for our own content work first, then released it for everyone.
 
 == Installation ==
 
@@ -87,40 +84,74 @@ Rank Math, Yoast SEO, All in One SEO, OpenRouter, Unsplash, and model names are 
 
 == Frequently Asked Questions ==
 
-= Do I need an API key? =
-Yes. You need an [OpenRouter](https://openrouter.ai/) API key. OpenRouter gives you access to hundreds of AI models through one account. Unsplash is optional; if you use it for stock featured images, you will need a free Unsplash access key.
+= Does DraftCraft replace writers? =
 
-= Can I use ChatGPT, Claude, DeepSeek, or Gemini? =
-Yes. By connecting your OpenRouter API key, you have instant access to OpenAI (GPT-4o, o1, o3-mini), Anthropic (Claude 3.5 Sonnet / Haiku), DeepSeek (V3, R1), Google Gemini (2.0 Flash, 1.5 Pro), Meta Llama, Mistral, and dozens of other cutting-edge language models.
+No. DraftCraft handles the first draft, including structure, headings, FAQs, and SEO fields. You add the experience, opinions, and finishing touches that make content worth reading. Posts are saved as drafts by default so nothing goes live without your review.
 
-= Does DraftCraft support automatic internal linking and featured images? =
-Yes. DraftCraft includes an intelligent internal linking engine that semantically matches your new posts to existing published content. It also generates and sets featured images automatically using OpenRouter image models (like Flux or DALL·E) or Unsplash stock photos.
+= How good is the writing? =
 
-= Will Google penalise my AI-generated content? =
-Google's guidelines state that high-quality, helpful content is rewarded regardless of how it is produced. Use DraftCraft to generate a solid first draft, then review, customize, and publish.
+That depends on two things you control: the model and the writing style prompt. Tell DraftCraft who you write for, how you sound, and what to include or avoid. Lighter models are faster and cheaper for early drafts. More capable models produce drafts that need less editing.
 
-= Does the content actually sound good? =
-Yes. Quality depends on the model selected and your system prompt instructions. Top-tier models produce publication-quality writing when provided with clear brand and voice guidelines.
+= Is AI-assisted content safe for SEO? =
 
-= Will this publish posts automatically? =
-By default, DraftCraft creates posts as **Draft** so you can review them first. You can change the default post status to **Published** in settings if you want fully automated, hands-free publishing.
+Search engines reward helpful, original content, whether or not AI was involved in drafting it. For the best results:
 
-= Which SEO plugins are supported? =
-Rank Math, Yoast SEO, and All in One SEO (AIOSEO) are all supported. DraftCraft auto-detects whichever plugin is active on your site.
+* Keep Post Status set to Draft and review every post before publishing.
+* Write a detailed style prompt that matches your niche and voice.
+* Add your own examples, experience, and insights while editing.
+* Enable SEO sync so each post has a proper focus keyword, title, and meta description.
 
-= How does category rotation work? =
-Select your desired categories and enable Category Rotation on the Content tab. DraftCraft will cycle through them sequentially on each scheduled run.
+= Which AI models can I use? =
 
-= Can I plan content in advance with a CSV? =
-Yes. Use the Bulk Keyword CSV Importer on the SEO tab. Upload a spreadsheet with keywords, target categories, instructions, and scheduled dates. DraftCraft will process the queue automatically.
+Any text or image model available on OpenRouter, including Claude, GPT-4o, Gemini, DeepSeek, Llama, and Flux. The model list updates automatically.
 
-= What data is sent to third-party services? =
-When generating content, DraftCraft communicates directly with OpenRouter (and Unsplash if configured). Prompts and category context are transmitted securely over HTTPS. No data or API keys are ever routed through ArtisansWP servers.
+= Does it work with Rank Math, Yoast SEO, and All in One SEO? =
 
-= Does DraftCraft store my API key securely? =
-Your API key is stored safely in your own WordPress database (`wp_options`) and is always masked (••••••••) in the administrative interface.
+Yes. DraftCraft fills in the focus keyword, SEO title, and meta description for all three.
+
+= Does it work with the block editor and the Classic editor? =
+
+Yes. The AI assistant metabox is available in both.
+
+= What does it cost to use? =
+
+DraftCraft itself is free. AI usage is billed by OpenRouter to your own account at their published rates, and some models are free. Unsplash is optional.
+
+= Do I need an ArtisansWP account? =
+
+No. You enter your own API keys, and DraftCraft connects directly to OpenRouter and Unsplash.
+
+== Third-Party Services ==
+
+DraftCraft connects to external services only when you configure and use the related features. Your prompts, settings, and related content may be sent to these providers so they can generate text or images.
+
+= OpenRouter (required for AI text; optional for AI images) =
+
+Used when you generate posts, editor suggestions, term descriptions, or OpenRouter-based featured images.
+Data sent may include your API key (in the Authorization header), the selected model, system and user prompts, category context, and article content returned as JSON.
+
+* Website: [https://openrouter.ai/](https://openrouter.ai/)
+* Terms: [https://openrouter.ai/terms](https://openrouter.ai/terms)
+* Privacy: [https://openrouter.ai/privacy](https://openrouter.ai/privacy)
+
+= Unsplash (optional, only when Image Provider is set to Unsplash) =
+
+Used to search for and download a stock photo for the featured image.
+Data sent may include your Unsplash access key and a search query based on the post title or keyword.
+
+* Website: [https://unsplash.com/](https://unsplash.com/)
+* API terms: [https://unsplash.com/api-terms](https://unsplash.com/api-terms)
+* Privacy: [https://unsplash.com/privacy](https://unsplash.com/privacy)
+
+No ArtisansWP account is required. You supply your own API keys directly to OpenRouter and Unsplash, and DraftCraft does not proxy them through ArtisansWP servers.
+
+Rank Math, Yoast SEO, All in One SEO, OpenRouter, Unsplash, and all model names are trademarks of their respective owners. DraftCraft is not affiliated with or endorsed by those projects.
 
 == Changelog ==
+
+= 1.2.4 =
+* Docs: Rewrote the plugin description, FAQ, and third-party services section to focus on AI-assisted drafting.
+* Tweak: Updated the plugin header description and readme tags.
 
 = 1.2.3 =
 * Fix: Multi-layer resilient JSON parser for AI model responses preventing JSON decode errors.
