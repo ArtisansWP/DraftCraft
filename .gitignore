@@ -26,6 +26,7 @@ Desktop.ini
 # Composer & Node (if used locally)
 vendor/
 node_modules/
+.phpunit.result.cache
 
 # Local testing and scratch
 scratch/

@@ -1,0 +1,17 @@
+{
+	"name": "artisanswp/draftcraft",
+	"description": "Write blog posts faster. DraftCraft creates SEO-ready AI drafts you review, edit, and publish in your own voice.",
+	"type": "wordpress-plugin",
+	"license": "GPL-2.0-or-later",
+	"require": {
+		"php": ">=8.0"
+	},
+	"require-dev": {
+		"doctrine/instantiator": "^1.5",
+		"phpunit/phpunit": "^9.6",
+		"yoast/phpunit-polyfills": "^2.0"
+	},
+	"config": {
+		"sort-packages": true
+	}
+}

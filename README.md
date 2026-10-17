@@ -71,6 +71,20 @@ Refine, expand, or rewrite DraftCraft-generated drafts directly inside the WordP
 
 ---
 
+## PHPUnit
+
+WordPress integration tests live in `tests/phpunit` and run against the WordPress test library (MySQL required). They do not call OpenRouter.
+
+```bash
+bash bin/install-wp-tests.sh wordpress_test root '' localhost latest
+composer install
+vendor/bin/phpunit
+```
+
+Set `WP_TESTS_DIR` if the test library is not in the default temp path. GitHub Actions runs the same suite on PHP 8.0 and 8.2.
+
+---
+
 ## Developer Hooks
 
 DraftCraft provides hooks and filters to customize prompts, payloads, schedules, and generated content.
