@@ -15,14 +15,39 @@ delete_option( 'draftcraft_settings' );
 delete_option( 'draftcraft_rotation_index' );
 delete_option( 'draftcraft_keyword_queue' );
 
-// Delete transients.
-delete_transient( 'draftcraft_models_cache' );
-delete_transient( 'draftcraft_image_models_cache' );
-delete_transient( 'draftcraft_pipeline_lock' );
-delete_transient( 'draftcraft_bulk_notice' );
-delete_transient( 'draftcraft_aioseo_table' );
-delete_transient( 'draftcraft_link_candidates_' . md5( 'post' ) );
-delete_transient( 'draftcraft_link_candidates_v2_' . md5( 'post' ) );
+global $wpdb;
+
+$transient_likes = array(
+	$wpdb->esc_like( '_transient_draftcraft_' ) . '%',
+	$wpdb->esc_like( '_transient_timeout_draftcraft_' ) . '%',
+	$wpdb->esc_like( '_site_transient_draftcraft_' ) . '%',
+	$wpdb->esc_like( '_site_transient_timeout_draftcraft_' ) . '%',
+);
+
+foreach ( $transient_likes as $like ) {
+	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Uninstall prefix cleanup; table name cannot be a placeholder.
+	$wpdb->query(
+		$wpdb->prepare(
+			"DELETE FROM {$wpdb->options} WHERE option_name LIKE %s",
+			$like
+		)
+	);
+}
+
+if ( is_multisite() ) {
+	foreach ( array(
+		$wpdb->esc_like( '_site_transient_draftcraft_' ) . '%',
+		$wpdb->esc_like( '_site_transient_timeout_draftcraft_' ) . '%',
+	) as $like ) {
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Uninstall prefix cleanup; table name cannot be a placeholder.
+		$wpdb->query(
+			$wpdb->prepare(
+				"DELETE FROM {$wpdb->sitemeta} WHERE meta_key LIKE %s",
+				$like
+			)
+		);
+	}
+}
 
 // Clear scheduled hooks.
 wp_clear_scheduled_hook( 'draftcraft_cron_generate' );

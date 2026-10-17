@@ -47,7 +47,7 @@ Generate relevant FAQs for each post. Adds accessible FAQ HTML and schema.org `F
 Generate rich descriptions for categories and tags with one click directly inside the term edit screen.
 
 ### 12. Post Editor AI Assistant
-Refine, expand, or rewrite generated drafts directly inside the WordPress Block Editor (Gutenberg) or Classic Editor.
+Refine, expand, or rewrite DraftCraft-generated drafts directly inside the WordPress Block Editor (Gutenberg) or Classic Editor. The assistant metabox appears on those posts only.
 
 ---
 

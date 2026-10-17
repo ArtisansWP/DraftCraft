@@ -79,7 +79,7 @@ function draftcraft_execute_pipeline(): array {
 
 	if ( empty( $api_key ) || empty( $model ) ) {
 		delete_transient( 'draftcraft_pipeline_lock' );
-		$msg = 'Execution aborted: API key or model not configured.';
+		$msg = __( 'Execution aborted: API key or model not configured.', 'draftcraft' );
 		draftcraft_log( $msg );
 		do_action( 'draftcraft_generation_failed', $msg, $settings );
 		return array(
@@ -333,7 +333,11 @@ function draftcraft_execute_pipeline(): array {
 
 	if ( 200 !== $http_code ) {
 		delete_transient( 'draftcraft_pipeline_lock' );
-		$msg = function_exists( 'draftcraft_parse_api_error' ) ? draftcraft_parse_api_error( $http_code, $body ) : sprintf( 'OpenRouter returned HTTP %d.', $http_code );
+		$msg = function_exists( 'draftcraft_parse_api_error' ) ? draftcraft_parse_api_error( $http_code, $body ) : sprintf(
+			/* translators: %d: HTTP status code */
+			__( 'OpenRouter returned HTTP %d.', 'draftcraft' ),
+			$http_code
+		);
 		draftcraft_log( $msg . ' Body: ' . substr( $body, 0, 300 ) );
 		if ( null !== $bulk_index && $bulk_index >= 0 ) {
 			DraftCraft_Bulk::fail_item( $bulk_index, $msg );
@@ -350,7 +354,7 @@ function draftcraft_execute_pipeline(): array {
 	$decoded = json_decode( $body, true );
 	if ( JSON_ERROR_NONE !== json_last_error() || ! isset( $decoded['choices'][0]['message']['content'] ) ) {
 		delete_transient( 'draftcraft_pipeline_lock' );
-		$msg = 'Failed to decode API response.';
+		$msg = __( 'Failed to decode API response.', 'draftcraft' );
 		draftcraft_log( $msg );
 		if ( null !== $bulk_index && $bulk_index >= 0 ) {
 			DraftCraft_Bulk::fail_item( $bulk_index, $msg );
@@ -379,7 +383,7 @@ function draftcraft_execute_pipeline(): array {
 
 	if ( ! is_array( $post_data ) || empty( $post_data['title'] ) || empty( $post_data['content'] ) ) {
 		delete_transient( 'draftcraft_pipeline_lock' );
-		$msg = 'Invalid JSON structure returned by model.';
+		$msg = __( 'Invalid JSON structure returned by model.', 'draftcraft' );
 		draftcraft_log( $msg . ' Raw: ' . substr( $content_raw, 0, 500 ) );
 		if ( null !== $bulk_index && $bulk_index >= 0 ) {
 			DraftCraft_Bulk::fail_item( $bulk_index, $msg );

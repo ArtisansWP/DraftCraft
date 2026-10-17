@@ -3,7 +3,7 @@
  * Plugin Name:       DraftCraft
  * Plugin URI:        https://artisanswp.com/plugin/draftcraft/
  * Description:       Write blog posts faster. DraftCraft creates SEO-ready AI drafts you review, edit, and publish in your own voice. Works with any OpenRouter model.
- * Version:           1.2.4
+ * Version:           1.2.5
  * Requires at least: 6.0
  * Requires PHP:      8.0
  * Author:            ArtisansWP
@@ -25,7 +25,7 @@ defined( 'ABSPATH' ) || exit;
 // ============================================================
 // Constants
 // ============================================================
-define( 'DRAFTCRAFT_VERSION', '1.2.4' );
+define( 'DRAFTCRAFT_VERSION', '1.2.5' );
 define( 'DRAFTCRAFT_PLUGIN_FILE', __FILE__ );
 define( 'DRAFTCRAFT_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'DRAFTCRAFT_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
@@ -102,6 +102,21 @@ function draftcraft_maybe_boot_modules(): void {
 
 
 add_action( 'plugins_loaded', 'draftcraft_maybe_boot_modules', 5 );
+add_action( 'init', 'draftcraft_load_textdomain' );
+
+
+/**
+ * Load plugin translations from /languages.
+ *
+ * @since 1.2.5
+ */
+function draftcraft_load_textdomain(): void {
+	load_plugin_textdomain(
+		'draftcraft',
+		false,
+		dirname( plugin_basename( DRAFTCRAFT_PLUGIN_FILE ) ) . '/languages'
+	);
+}//end draftcraft_load_textdomain()
 
 // Ensure modules exist before pipeline / image cron fire.
 add_action( DRAFTCRAFT_CRON_HOOK, 'draftcraft_load_runtime_modules', 1 );

@@ -4,7 +4,7 @@ Tags: ai writer, ai content, blog post, seo, content generator
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.2.4
+Stable tag: 1.2.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,7 +35,7 @@ Connect your own OpenRouter API key and choose the model that fits the job, incl
 
 = Drafting and editing =
 
-* **Post editor AI assistant:** refine, expand, or rewrite any section of a draft directly in the block editor or the Classic editor.
+* **Post editor AI assistant:** refine, expand, or rewrite any section of a DraftCraft-generated draft directly in the block editor or the Classic editor.
 * **Writing style controls:** set your brand voice, target audience, tone, and topic-specific instructions through a custom system prompt.
 * **Drafts queue dashboard:** track, preview, edit, and publish AI-assisted drafts from one clean admin screen.
 * **Draft-first by default:** posts are saved as drafts for review. Automatic publishing is available if you choose it.
@@ -111,7 +111,7 @@ Yes. DraftCraft fills in the focus keyword, SEO title, and meta description for 
 
 = Does it work with the block editor and the Classic editor? =
 
-Yes. The AI assistant metabox is available in both.
+Yes. The AI assistant metabox is available in both editors on posts that DraftCraft generated.
 
 = What does it cost to use? =
 
@@ -148,6 +148,12 @@ No ArtisansWP account is required. You supply your own API keys directly to Open
 Rank Math, Yoast SEO, All in One SEO, OpenRouter, Unsplash, and all model names are trademarks of their respective owners. DraftCraft is not affiliated with or endorsed by those projects.
 
 == Changelog ==
+
+= 1.2.5 =
+* Fix: Category description generator now also works on post tag edit screens.
+* Fix: Load plugin translations from the languages folder.
+* Fix: Translate remaining pipeline error messages shown in the admin UI.
+* Fix: Remove all DraftCraft transients on uninstall, not only a few hardcoded keys.
 
 = 1.2.4 =
 * Docs: Rewrote the plugin description, FAQ, and third-party services section to focus on AI-assisted drafting.

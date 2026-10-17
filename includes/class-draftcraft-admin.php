@@ -517,7 +517,7 @@ function draftcraft_enqueue_term_ai_assets( string $hook ): void {
 	$taxonomy = sanitize_key( $screen->taxonomy );
 
 	$tax_obj = get_taxonomy( $taxonomy );
-	if ( ! $tax_obj || ! $tax_obj->hierarchical || ! current_user_can( $tax_obj->cap->edit_terms ) ) {
+	if ( ! $tax_obj || ! current_user_can( $tax_obj->cap->edit_terms ) ) {
 		return;
 	}
 
@@ -611,9 +611,12 @@ function draftcraft_ajax_generate_term_desc(): void {
 		$slug = sanitize_title( $name );
 	}
 
-	$tax_label = ! empty( $tax_obj->labels->singular_name ) ? $tax_obj->labels->singular_name : __( 'Category', 'draftcraft' );
+	$tax_label = ! empty( $tax_obj->labels->singular_name ) ? $tax_obj->labels->singular_name : __( 'term', 'draftcraft' );
 
-	$system_prompt = 'You write concise category descriptions for a WordPress blog. Describe only what kinds of posts and topics belong in this category. Do not mention any plugin, tool, brand name, or content-generation instructions. Do not tell writers how to write (no tone/style directives). Respond with plain text only — no JSON, no markdown, no quotes, no title heading. Length: 2–3 sentences (about 30–60 words).';
+	$system_prompt = sprintf(
+		'You write concise %1$s descriptions for a WordPress blog. Describe only what kinds of posts and topics belong in this %1$s. Do not mention any plugin, tool, brand name, or content-generation instructions. Do not tell writers how to write (no tone/style directives). Respond with plain text only — no JSON, no markdown, no quotes, no title heading. Length: 2–3 sentences (about 30–60 words).',
+		$tax_label
+	);
 
 	$user_prompt = sprintf(
 		"Write a short description for this WordPress %1\$s explaining what kinds of posts it contains.\n\nName: %2\$s\nSlug: %3\$s",
