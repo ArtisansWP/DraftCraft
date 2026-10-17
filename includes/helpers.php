@@ -256,7 +256,7 @@ function draftcraft_get_settings(): array {
 	if ( null === $saved ) {
 		$old_settings = get_option( 'wp_aw_settings', null );
 		if ( is_array( $old_settings ) ) {
-			update_option( DRAFTCRAFT_OPTION_KEY, $old_settings );
+			draftcraft_update_settings( $old_settings );
 			$saved = $old_settings;
 
 			// Migrate rotation index.
@@ -273,6 +273,51 @@ function draftcraft_get_settings(): array {
 
 	return $merged;
 }//end draftcraft_get_settings()
+
+
+/**
+ * Persist plugin settings without autoloading API keys on every request.
+ *
+ * @since  1.2.5
+ * @param  array<string, mixed> $settings Settings array.
+ * @return boolean
+ */
+function draftcraft_update_settings( array $settings ): bool {
+	return (bool) update_option( DRAFTCRAFT_OPTION_KEY, $settings, false );
+}//end draftcraft_update_settings()
+
+
+/**
+ * One-time: stop autoloading stored API keys on existing installs.
+ *
+ * @since 1.2.5
+ */
+function draftcraft_maybe_disable_settings_autoload(): void {
+	$marker = get_option( DRAFTCRAFT_DB_VERSION_OPTION, '' );
+	if ( DRAFTCRAFT_DB_VERSION === (string) $marker ) {
+		return;
+	}
+
+	if ( false !== get_option( DRAFTCRAFT_OPTION_KEY, false ) ) {
+		if ( function_exists( 'wp_set_option_autoload' ) ) {
+			wp_set_option_autoload( DRAFTCRAFT_OPTION_KEY, false );
+		} else {
+			global $wpdb;
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- One-time autoload flip on older WordPress.
+			$wpdb->update(
+				$wpdb->options,
+				array( 'autoload' => 'no' ),
+				array( 'option_name' => DRAFTCRAFT_OPTION_KEY ),
+				array( '%s' ),
+				array( '%s' )
+			);
+			wp_cache_delete( DRAFTCRAFT_OPTION_KEY, 'options' );
+			wp_cache_delete( 'alloptions', 'options' );
+		}
+	}
+
+	update_option( DRAFTCRAFT_DB_VERSION_OPTION, DRAFTCRAFT_DB_VERSION, false );
+}//end draftcraft_maybe_disable_settings_autoload()
 
 
 /**

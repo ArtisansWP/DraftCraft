@@ -154,6 +154,10 @@ Rank Math, Yoast SEO, All in One SEO, OpenRouter, Unsplash, and all model names 
 * Fix: Load plugin translations from the languages folder.
 * Fix: Translate remaining pipeline error messages shown in the admin UI.
 * Fix: Remove all DraftCraft transients on uninstall, not only a few hardcoded keys.
+* Security: Stop autoloading stored OpenRouter and Unsplash API keys on every page load.
+* Security: Require HTTPS for remote featured images and restrict Unsplash downloads to official image hosts.
+* Security: Rate-limit AI editor rewrite requests per user.
+* Security: Generate Image Now only runs on DraftCraft-generated posts the current user can edit.
 
 = 1.2.4 =
 * Docs: Rewrote the plugin description, FAQ, and third-party services section to focus on AI-assisted drafting.

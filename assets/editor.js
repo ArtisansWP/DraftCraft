@@ -129,9 +129,16 @@
 							'<span class="dashicons dashicons-admin-customizer" style="font-size:16px;width:16px;height:16px;margin:0;"></span> ' + ( Data.strings.btnLabel || 'Apply AI Changes' )
 						);
 					},
-					error: function () {
+					error: function ( xhr ) {
+						var msg = Data.strings.serverError || 'Could not contact server.';
+						if (xhr && xhr.responseJSON && xhr.responseJSON.data && xhr.responseJSON.data.message) {
+							msg = xhr.responseJSON.data.message;
+						} else if (xhr && 429 === xhr.status) {
+							msg = Data.strings.rateLimited || 'Please wait a moment before sending another AI edit request.';
+						}
+
 						$status.css( 'color', '#d63638' )
-						.text( Data.strings.serverError || 'Could not contact server.' );
+						.text( '\u2717 ' + msg );
 						$btn.prop( 'disabled', false )
 						.html(
 							'<span class="dashicons dashicons-admin-customizer" style="font-size:16px;width:16px;height:16px;margin:0;"></span> ' + ( Data.strings.btnLabel || 'Apply AI Changes' )

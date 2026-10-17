@@ -14,6 +14,7 @@ defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
 delete_option( 'draftcraft_settings' );
 delete_option( 'draftcraft_rotation_index' );
 delete_option( 'draftcraft_keyword_queue' );
+delete_option( 'draftcraft_db_version' );
 
 global $wpdb;
 

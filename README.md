@@ -110,7 +110,7 @@ DraftCraft provides hooks and filters to customize prompts, payloads, schedules,
 | `draftcraft_image_system_prompt` | `$system_prompt, $prompt, $settings` | Modify the image style system instructions |
 | `draftcraft_image_api_payload` | `$payload, $prompt, $settings` | Modify the image generation API payload |
 | `draftcraft_image_url` | `$image_url, $post_id, $settings` | Filter the downloaded image URL |
-| `draftcraft_allowed_image_hosts` | `$allowed, $url` | Filter allowed remote hosts for image download |
+| `draftcraft_allowed_image_hosts` | `$allowed, $url` | Optional hostname allowlist for remote featured images. Default `null` allows any HTTPS URL that passes `wp_http_validate_url()`. Return a host array to restrict further. Data URIs are always allowed. Unsplash sources are limited to `images.unsplash.com` and `plus.unsplash.com`. |
 | `draftcraft_internal_link_thresholds` | `$thresholds, $settings` | Adjust score thresholds for internal linking |
 | `draftcraft_internal_link_stopwords` | `$stopwords` | Modify stopwords used in content matching |
 | `draftcraft_link_candidates` | `$candidates, $post_type` | Filter candidates available for internal links |

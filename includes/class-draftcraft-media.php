@@ -151,6 +151,11 @@ class DraftCraft_Media {
 			return false;
 		}
 
+		$scheme = strtolower( (string) wp_parse_url( $url, PHP_URL_SCHEME ) );
+		if ( 'https' !== $scheme ) {
+			return false;
+		}
+
 		$host = wp_parse_url( $url, PHP_URL_HOST );
 		if ( ! is_string( $host ) || '' === $host ) {
 			return false;
@@ -158,11 +163,11 @@ class DraftCraft_Media {
 
 		/*
 		 * Optional hostname allowlist. Return null (default) to allow any
-		 * URL that passes wp_http_validate_url(). Return an array of hosts
-		 * to restrict further.
+		 * HTTPS URL that passes wp_http_validate_url(). Return an array of
+		 * hosts to restrict further (useful when a model CDN should be pinned).
 		 *
 		 * @since 1.2.0
-		 * @param string[]|null $allowed Allowed hostnames, or null for any safe URL.
+		 * @param string[]|null $allowed Allowed hostnames, or null for any safe HTTPS URL.
 		 * @param string        $url     Candidate URL.
 		 */
 		$allowed = apply_filters( 'draftcraft_allowed_image_hosts', null, $url );
@@ -310,7 +315,21 @@ class DraftCraft_Media {
 			return '';
 		}
 
-		return ( $photo['urls']['regular'] ?? $photo['urls']['full'] ?? '' );
+		$image_url = (string) ( $photo['urls']['regular'] ?? $photo['urls']['full'] ?? '' );
+		if ( '' === $image_url ) {
+			return '';
+		}
+
+		$host = strtolower( (string) wp_parse_url( $image_url, PHP_URL_HOST ) );
+		if ( ! in_array( $host, array( 'images.unsplash.com', 'plus.unsplash.com' ), true ) ) {
+			if ( function_exists( 'draftcraft_log' ) ) {
+				draftcraft_log( 'Unsplash: disallowed image host.' );
+			}
+
+			return '';
+		}
+
+		return $image_url;
 	}//end fetch_unsplash_image()
 
 

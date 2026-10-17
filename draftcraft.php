@@ -30,6 +30,8 @@ define( 'DRAFTCRAFT_PLUGIN_FILE', __FILE__ );
 define( 'DRAFTCRAFT_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'DRAFTCRAFT_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'DRAFTCRAFT_OPTION_KEY', 'draftcraft_settings' );
+define( 'DRAFTCRAFT_DB_VERSION_OPTION', 'draftcraft_db_version' );
+define( 'DRAFTCRAFT_DB_VERSION', '1.2.5' );
 define( 'DRAFTCRAFT_CRON_HOOK', 'draftcraft_cron_generate' );
 define( 'DRAFTCRAFT_IMAGE_CRON_HOOK', 'draftcraft_cron_generate_image' );
 define( 'DRAFTCRAFT_NONCE_SETTINGS', 'draftcraft_save_settings' );
@@ -103,6 +105,7 @@ function draftcraft_maybe_boot_modules(): void {
 
 add_action( 'plugins_loaded', 'draftcraft_maybe_boot_modules', 5 );
 add_action( 'init', 'draftcraft_load_textdomain' );
+add_action( 'init', 'draftcraft_maybe_disable_settings_autoload', 20 );
 
 
 /**
@@ -135,6 +138,8 @@ register_deactivation_hook( DRAFTCRAFT_PLUGIN_FILE, 'draftcraft_deactivate' );
  * Schedules the cron event if settings already exist.
  */
 function draftcraft_activate(): void {
+	draftcraft_maybe_disable_settings_autoload();
+
 	$settings = draftcraft_get_settings();
 	if ( ! empty( $settings['schedule'] ) && '1' === $settings['automation_on'] ) {
 		draftcraft_register_cron( $settings['schedule'] );
