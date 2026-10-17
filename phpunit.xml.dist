@@ -10,6 +10,7 @@
 	convertNoticesToExceptions="true"
 	convertWarningsToExceptions="true"
 	beStrictAboutTestsThatDoNotTestAnything="true"
+	testdox="true"
 	>
 	<testsuites>
 		<testsuite name="DraftCraft">
