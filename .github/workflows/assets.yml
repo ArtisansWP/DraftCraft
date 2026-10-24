@@ -25,5 +25,7 @@ jobs:
           cp -rf .wordpress-org/* /tmp/svn-assets/
           cd /tmp/svn-assets
           svn add --force * || true
+          # New PNGs otherwise commit as octet-stream and download instead of displaying.
+          svn propset svn:mime-type image/png *.png
           svn status
-          svn commit -m "Update assets: banners and icons" --non-interactive --trust-server-cert --no-auth-cache --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
+          svn commit -m "Update WordPress.org banner, icon, and screenshots" --non-interactive --trust-server-cert --no-auth-cache --username "$SVN_USERNAME" --password "$SVN_PASSWORD"

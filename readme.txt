@@ -4,7 +4,7 @@ Tags: ai writer, ai content, blog post, seo, content generator
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.2.5
+Stable tag: 1.2.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -147,7 +147,18 @@ No ArtisansWP account is required. You supply your own API keys directly to Open
 
 Rank Math, Yoast SEO, All in One SEO, OpenRouter, Unsplash, and all model names are trademarks of their respective owners. DraftCraft is not affiliated with or endorsed by those projects.
 
+== Screenshots ==
+
+1. Review every generated post in the AI Drafts Queue before it goes live.
+2. Connect your own OpenRouter key, choose any model, and set your writing voice.
+3. Schedule fresh drafts hourly, twice daily, daily, or weekly, or generate one now.
+4. Write SEO metadata for Rank Math, Yoast, or AIOSEO, and plan topics from a keyword queue.
+5. Save posts as drafts by default and rotate through the categories you choose.
+
 == Changelog ==
+
+= 1.2.6 =
+* Docs: Replace the WordPress.org banner and icon, and add plugin screenshots.
 
 = 1.2.5 =
 * Fix: Category description generator now also works on post tag edit screens.
